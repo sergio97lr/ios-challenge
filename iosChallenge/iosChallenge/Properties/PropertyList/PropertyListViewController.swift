@@ -11,6 +11,8 @@ class PropertyListViewController: UIViewController {
 
     var presenter: PropertyListPresenterProtocol?
     
+    var propertyList: PropertiesEntity?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

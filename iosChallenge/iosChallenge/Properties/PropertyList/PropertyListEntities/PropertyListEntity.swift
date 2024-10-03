@@ -70,4 +70,4 @@ struct ParkingSpace: Decodable {
     }
 }
 
-typealias propertyListEntity = [PropertyListEntity]
+typealias PropertiesEntity = [PropertyListEntity]
