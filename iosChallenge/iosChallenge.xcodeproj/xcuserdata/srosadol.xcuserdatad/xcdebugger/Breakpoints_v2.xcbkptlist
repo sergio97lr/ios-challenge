@@ -3,4 +3,66 @@
    uuid = "CB81890C-D37F-4BC0-B9AA-6994D559A355"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3F628BD1-019A-4644-8024-B11173654335"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iosChallenge/Splash/SplashRouter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "navigateToPropertyList(propertyList:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3F628BD1-019A-4644-8024-B11173654335 - 46840c184f58577b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iosChallenge.SplashRouter.navigateToPropertyList() -&gt; ()"
+                  moduleName = "iosChallenge.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/srosadol/Documents/Sergio/RM_Characters/ios-challenge/iosChallenge/iosChallenge/Splash/SplashRouter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30">
+               </Location>
+               <Location
+                  uuid = "3F628BD1-019A-4644-8024-B11173654335 - 526d2000ca13ae3c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in iosChallenge.SplashRouter.navigateToPropertyList() -&gt; ()"
+                  moduleName = "iosChallenge.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/srosadol/Documents/Sergio/RM_Characters/ios-challenge/iosChallenge/iosChallenge/Splash/SplashRouter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31">
+               </Location>
+               <Location
+                  uuid = "3F628BD1-019A-4644-8024-B11173654335 - ffb37bd638ab6f4d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iosChallenge.SplashRouter.navigateToPropertyList(propertyList: Swift.Array&lt;iosChallenge.PropertyListEntity&gt;) -&gt; ()"
+                  moduleName = "iosChallenge.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/srosadol/Documents/Sergio/RM_Characters/ios-challenge/iosChallenge/iosChallenge/Splash/SplashRouter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

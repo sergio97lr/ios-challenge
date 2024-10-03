@@ -13,10 +13,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let propertyListRouter = PropertyListRouter()
+        let splashtRouter = SplashRouter()
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = propertyListRouter.view
+        window?.rootViewController = splashtRouter.view
         window?.makeKeyAndVisible()
         
         
