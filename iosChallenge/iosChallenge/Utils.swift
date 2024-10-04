@@ -15,4 +15,16 @@ class Utils {
         }
         return nil
     }
+    
+    static func formatDate(date: Date) -> (formattedTime: String, formattedDate: String) {
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "HH:mm:ss"
+        let formattedTime = dateFormatter.string(from: date)
+
+        dateFormatter.dateFormat = "dd:MM:yyyy"
+        let formattedDate = dateFormatter.string(from: date)
+        
+        return (formattedTime, formattedDate)
+    }
 }
