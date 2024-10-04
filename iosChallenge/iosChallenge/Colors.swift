@@ -8,5 +8,6 @@
 import UIKit
 
 struct IdealistaColors {
-    static let greenLotero = UIColor(named: "greenIdealista")
+    static let greenIdealista = UIColor(named: "greenIdealista")
+    static let pinkIdealista = UIColor(named: "pinkIdealista")
 }

@@ -15,7 +15,7 @@ class PropertyListRouter {
         let interactor = PropertyListInteractor()
         let presenter = PropertyListPresenter(view: view, interactor: interactor, router: self)
         
-        view.presenter = presenter
+        self.view.presenter = presenter
         interactor.presenter = presenter
     }
 }

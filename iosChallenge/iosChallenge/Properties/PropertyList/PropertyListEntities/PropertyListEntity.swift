@@ -50,12 +50,15 @@ struct ImageList: Decodable {
 }
 
 struct Features: Decodable {
-    let hasAC: Bool
-    let hasBoxRoom: Bool
+    let hasAC: Bool?
+    let hasBoxRoom: Bool?
+    let hasTerrace: Bool?
+    let hasGarden: Bool?
+    let hasSwimmingPool: Bool?
     
     enum CodingKeys: String, CodingKey {
         case hasAC = "hasAirConditioning"
-        case hasBoxRoom
+        case hasBoxRoom, hasTerrace, hasGarden, hasSwimmingPool
         
     }
 }
