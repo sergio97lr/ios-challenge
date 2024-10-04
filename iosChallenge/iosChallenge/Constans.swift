@@ -9,4 +9,5 @@ struct Constants {
     static let baseUrl = "https://idealista.github.io/ios-challenge/"
     static let listEndpoint = "list.json"
     static let detailEndpoint = "detail.json"
+    
 }

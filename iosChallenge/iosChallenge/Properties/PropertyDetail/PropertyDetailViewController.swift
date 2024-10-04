@@ -7,11 +7,14 @@
 
 import UIKit
 
-class PropertyDetailViewController: UIViewController {
+class PropertyDetailViewController: BaseViewController {
 
     var presenter: PropertyDetailPresenterProtocol?
     
     override func viewDidLoad() {
+        
+        showBackButton = true
+        
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.

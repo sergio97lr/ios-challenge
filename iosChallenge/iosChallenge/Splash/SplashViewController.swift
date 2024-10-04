@@ -17,9 +17,9 @@ class SplashViewController: UIViewController {
         super.viewDidLoad()
         
         if UIDevice.current.userInterfaceIdiom == .pad {
-            splashIconImageView.image = UIImage(named: "iPadIdealistaSplash")
+            splashIconImageView.image = UIImage(named: "idealistaLong")
         } else if UIDevice.current.userInterfaceIdiom == .phone {
-            splashIconImageView.image = UIImage(named: "iPhoneIdealistaSplash")
+            splashIconImageView.image = UIImage(named: "idealistaShort")
         }
         
     }
