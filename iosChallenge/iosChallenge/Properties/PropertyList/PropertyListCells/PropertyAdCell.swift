@@ -12,7 +12,6 @@ class PropertyAdCell: UITableViewCell {
     @IBOutlet weak var adView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var infoStackView: UIStackView!
-    @IBOutlet var bottomInfoStackViewConstraint: NSLayoutConstraint!
     @IBOutlet var operationLabel: UILabel!
     @IBOutlet weak var propertyAddressLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
@@ -25,6 +24,7 @@ class PropertyAdCell: UITableViewCell {
     var images: [UIImage] = []
     var property: PropertyListEntity?
     var favAd: Bool = false
+    var favoriteAd: (String, Date)? = nil
     
     // MARK: PrepareForReuse
     override func prepareForReuse() {
@@ -37,6 +37,12 @@ class PropertyAdCell: UITableViewCell {
         self.parkingLabel.isHidden = true
         self.additionalInfoLabel.text = ""
         self.favTextLabel.isHidden = true
+        self.favAd = false
+        self.favIcon.image = UIImage(named: "noFavIcon")
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
+        self.infoStackView.setNeedsLayout()
+        self.infoStackView.layoutIfNeeded()
     }
     
     override func awakeFromNib() {
@@ -53,6 +59,19 @@ class PropertyAdCell: UITableViewCell {
         self.configureStackView()
         self.addFavTapAction()
         self.favTextLabel.isHidden = true
+        self.favoriteAd = self.isFavoriteAd()
+        if let adFav = self.favoriteAd {
+            self.favAd = true
+            self.favIcon.image = UIImage(named: "favIcon")
+            self.favTextLabel.isHidden = false
+            self.infoStackView.spacing = 12
+            let dates = Utils.formatDate(date: adFav.1)
+            self.favTextLabel.text = "Added to favorites on \(dates.formattedDate) at \(dates.formattedTime)"
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+            self.infoStackView.setNeedsLayout()
+            self.infoStackView.layoutIfNeeded()
+        }
         
     }
     
@@ -80,78 +99,81 @@ class PropertyAdCell: UITableViewCell {
     
     func configureStackView() {
         guard let property = self.property else { return }
-            
-            self.infoStackView.spacing = 20
-            
-            // MARK: Operation
-            let operation = property.operation
-            var operationText = "For Rent"
-            if operation.contains("sale") {
-                operationText = "For Sale"
-            }
-            self.operationLabel.text = operationText
-            
-            // MARK: Price
-            let price = Int(property.priceInfo.price.amount)
-            let currencySuffix = property.priceInfo.price.currencySuffix
-            self.priceLabel.text = "\(price)\(currencySuffix)"
-            
-            // MARK: Address
-            let propertyType = property.propertyType
-            var propertyTypeText = "House"
-            if propertyType.contains("flat") {
-                propertyTypeText = "Flat"
-            }
-            let address = property.address
-            self.propertyAddressLabel.text = "\(propertyTypeText) in \(address)"
-            self.propertyAddressLabel.numberOfLines = 0
-            
-            // MARK: Location
-            let neighborhood = property.neighborhood
-            let district = property.district
-            let municipality = property.municipality
-            self.locationLabel.text = "\(neighborhood), \(district), \(municipality)"
-            self.locationLabel.numberOfLines = 0
-            
-            // MARK: Parking
-            let parkingSpace = property.parkingSpace?.hasParkingSpace ?? false
-            if parkingSpace {
-                self.parkingLabel.isHidden = false
-                let included = property.parkingSpace?.parkingPriceIncluded ?? false
-                if included {
-                    self.parkingLabel.text = "Parking Included"
-                } else {
-                    self.parkingLabel.text = "Parking Optional"
-                }
+        
+        self.infoStackView.spacing = 20
+        
+        // MARK: Operation
+        let operation = property.operation
+        var operationText = "For Rent"
+        if operation.contains("sale") {
+            operationText = "For Sale"
+        }
+        self.operationLabel.text = operationText
+        
+        // MARK: Price
+        let price = Int(property.priceInfo.price.amount)
+        let currencySuffix = property.priceInfo.price.currencySuffix
+        self.priceLabel.text = "\(price)\(currencySuffix)"
+        
+        // MARK: Address
+        let propertyType = property.propertyType
+        var propertyTypeText = "House"
+        if propertyType.contains("flat") {
+            propertyTypeText = "Flat"
+        }
+        let address = property.address
+        self.propertyAddressLabel.text = "\(propertyTypeText) in \(address)"
+        self.propertyAddressLabel.numberOfLines = 0
+        
+        // MARK: Location
+        let neighborhood = property.neighborhood
+        let district = property.district
+        let municipality = property.municipality
+        self.locationLabel.text = "\(neighborhood), \(district), \(municipality)"
+        self.locationLabel.numberOfLines = 0
+        
+        // MARK: Parking
+        let parkingSpace = property.parkingSpace?.hasParkingSpace ?? false
+        if parkingSpace {
+            self.parkingLabel.isHidden = false
+            let included = property.parkingSpace?.parkingPriceIncluded ?? false
+            if included {
+                self.parkingLabel.text = "Parking Included"
             } else {
-                self.parkingLabel.isHidden = true
+                self.parkingLabel.text = "Parking Optional"
             }
-            
-            // MARK: AdditionalProperties
-            let rooms = property.rooms
-            let size = Int(property.size)
-            var floor = property.floor
-            let exterior = property.exterior
-            switch floor {
-            case "0":
-                floor = "ground floor"
-            case "1":
-                floor = "1st floor"
-            case "2":
-                floor = "2nd floor"
-            case "3":
-                floor = "3rd floor"
-            default:
-                floor = "\(floor)th floor"
-            }
-            var exteriorOrInterior = "exterior"
-            if !exterior {
-                exteriorOrInterior = "interior"
-            }
-            
-            self.additionalInfoLabel.text = "\(rooms) bed - \(size) m2 - \(floor) - \(exteriorOrInterior)"
-
+        } else {
+            self.parkingLabel.isHidden = true
+        }
+        
+        // MARK: AdditionalProperties
+        let rooms = property.rooms
+        let size = Int(property.size)
+        var floor = property.floor
+        let exterior = property.exterior
+        switch floor {
+        case "0":
+            floor = "ground floor"
+        case "1":
+            floor = "1st floor"
+        case "2":
+            floor = "2nd floor"
+        case "3":
+            floor = "3rd floor"
+        default:
+            floor = "\(floor)th floor"
+        }
+        var exteriorOrInterior = "exterior"
+        if !exterior {
+            exteriorOrInterior = "interior"
+        }
+        
+        self.additionalInfoLabel.text = "\(rooms) bed - \(size) m2 - \(floor) - \(exteriorOrInterior)"
+        
     }
+    
+    
+    // MARK: Favorites
     func addFavTapAction() {
         let tapGestureImg = UITapGestureRecognizer(target: self, action: #selector(favTapped))
         self.favIcon.isUserInteractionEnabled = true
@@ -161,6 +183,7 @@ class PropertyAdCell: UITableViewCell {
     @objc func favTapped() {
         self.favAd = !self.favAd
         if self.favAd {
+            self.manageFavorites(addFav: true)
             UIView.transition(with: favIcon,
                               duration: 1.5,
                               options: .transitionCrossDissolve,
@@ -168,13 +191,54 @@ class PropertyAdCell: UITableViewCell {
                 self.favIcon.image = UIImage(named: "favIcon")
             })
         } else {
+            self.manageFavorites(addFav: false)
             UIView.transition(with: favIcon,
                               duration: 1.5,
                               options: .transitionCrossDissolve,
                               animations: {
                 self.favIcon.image = UIImage(named: "noFavIcon")
             })
+            
         }
+    }
+    
+    func manageFavorites(addFav: Bool) {
+        guard let property = self.property else { return }
+        let userDefaults = UserDefaults.standard
+        if addFav {
+            let date = Date()
+            let favProperty = ["code": property.propertyCode, "date": date] as [String : Any]
+            userDefaults.set(favProperty, forKey: property.propertyCode)
+            userDefaults.synchronize()
+            UIView.animate(withDuration: 1.5, animations: {
+                self.favTextLabel.isHidden = false
+            })
+            self.infoStackView.spacing = 12
+            let dates = Utils.formatDate(date: date)
+            self.favTextLabel.text = "Added to favorites on \(dates.formattedDate) at \(dates.formattedTime)"
+        } else {
+            UIView.animate(withDuration: 1.5, animations: {
+                self.favTextLabel.isHidden = true
+            })
+            userDefaults.removeObject(forKey: property.propertyCode)
+            userDefaults.synchronize()
+        }
+        
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
+        self.infoStackView.setNeedsLayout()
+        self.infoStackView.layoutIfNeeded()
+    }
+    
+    func isFavoriteAd() -> (codeFav: String, dateFav: Date)? {
+        guard let property = self.property else { return nil }
+        let userDefaults = UserDefaults.standard
+        if let adFav = userDefaults.dictionary(forKey: property.propertyCode),
+           let codeFav = adFav["code"] as? String,
+           let dateFav = adFav["date"] as? Date {
+            return (codeFav, dateFav)
+        }
+        return nil
     }
     
 }
