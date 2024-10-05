@@ -14,7 +14,6 @@ class PropertyListViewController: BaseViewController {
     @IBOutlet var propertyListTableViewTopConstraint: NSLayoutConstraint!
     
     var presenter: PropertyListPresenterProtocol?
-    
     var propertyList: PropertiesEntity?
     
     override func viewDidLoad() {
@@ -62,7 +61,7 @@ extension PropertyListViewController: UITableViewDelegate, UITableViewDataSource
 }
 
 extension PropertyListViewController: PropertyAdCellDelegate {
-    func navigateToDetail(propertyCode: String) {
-            self.presenter?.navigateToDetail(propertyCode: propertyCode)
+    func navigateToDetail(propertyCode: String, address: String, district: String, municipality: String) {
+        self.presenter?.navigateToDetail(propertyCode: propertyCode, address: address, district: district, municipality: municipality)
         }
     }

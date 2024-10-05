@@ -22,6 +22,10 @@ struct PropertyDetailEntity: Decodable {
     let country: String
     let moreCharacteristics: MoreCharacteristics
     let energyCertification: EnergyCertification
+    var address: String?
+    var district: String?
+    var municipality: String?
+    var originalPropertyCode: String?
 }
 
 struct PriceInfoDetail: Decodable {
@@ -73,4 +77,4 @@ struct EnergyType: Decodable {
     let type: String
 }
 
-typealias propertyDetailEntity = PropertyDetailEntity
+typealias PropertyEntity = PropertyDetailEntity

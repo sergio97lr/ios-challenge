@@ -109,7 +109,7 @@ class PropertyAdCell: UITableViewCell {
         self.operationLabel.text = operationText
         
         // MARK: Price
-        let price = Int(property.priceInfo.price.amount)
+        let price = Utils.formatPrice(property.priceInfo.price.amount) ?? String(property.priceInfo.price.amount)
         let currencySuffix = property.priceInfo.price.currencySuffix
         self.priceLabel.text = "\(price)\(currencySuffix)"
         
@@ -149,24 +149,13 @@ class PropertyAdCell: UITableViewCell {
         let size = Int(property.size)
         var floor = property.floor
         let exterior = property.exterior
-        switch floor {
-        case "0":
-            floor = "ground floor"
-        case "1":
-            floor = "1st floor"
-        case "2":
-            floor = "2nd floor"
-        case "3":
-            floor = "3rd floor"
-        default:
-            floor = "\(floor)th floor"
-        }
+        floor = Utils.getFloor(floor: floor)
         var exteriorOrInterior = "exterior"
         if !exterior {
             exteriorOrInterior = "interior"
         }
         
-        self.additionalInfoLabel.text = "\(rooms) bed - \(size) m2 - \(floor) - \(exteriorOrInterior)"
+        self.additionalInfoLabel.text = "\(rooms) bed - \(size) m\u{00B2} - \(floor) - \(exteriorOrInterior)"
         
     }
     
@@ -243,7 +232,7 @@ class PropertyAdCell: UITableViewCell {
     
     @objc func stackViewTapped() {
         guard let property = self.property else { return }
-        self.delegate?.navigateToDetail(propertyCode: property.propertyCode)
+        self.delegate?.navigateToDetail(propertyCode: property.propertyCode, address: property.address, district: property.district, municipality: property.municipality)
     }
     
 }

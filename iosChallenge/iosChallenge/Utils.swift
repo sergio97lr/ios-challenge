@@ -27,4 +27,26 @@ class Utils {
         
         return (formattedTime, formattedDate)
     }
+    
+    static func formatPrice(_ precio: Double) -> String? {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            numberFormatter.groupingSeparator = ","
+            return numberFormatter.string(from: NSNumber(value: precio))
+        }
+    
+    static func getFloor(floor: String) -> String {
+            switch floor {
+            case "0":
+                return "ground floor"
+            case "1":
+                return "1st floor"
+            case "2":
+                return "2nd floor"
+            case "3":
+                return "3rd floor"
+            default:
+                return "\(floor)th floor"
+            }
+        }
 }

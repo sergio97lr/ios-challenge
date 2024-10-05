@@ -7,48 +7,80 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "26CB06CB-4E32-4EB0-B794-90F71B5C856E"
-            shouldBeEnabled = "Yes"
+            uuid = "D007F7EE-1ACF-47EC-9B0A-19C32ECF6720"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iosChallenge/Properties/PropertyList/PropertyListCells/PropertyAdCell.swift"
+            filePath = "iosChallenge/Properties/PropertyDetail/PropertyDetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "configureStackView()"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "updateCells(cells:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AA90BF7B-825B-451B-8ABC-ABE195D8A35A"
-            shouldBeEnabled = "Yes"
+            uuid = "FAB6193A-17DE-4D9B-8181-CBCEAEE90F7B"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iosChallenge/Properties/PropertyList/PropertyListCells/PropertyAdCell.swift"
+            filePath = "iosChallenge/Properties/PropertyDetail/PropertyDetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
-            landmarkName = "manageFavorites(addFav:)"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "numberOfSections(in:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6AD31CB9-EE91-49ED-854F-33109783B92C"
+            uuid = "CE0DB8B1-E56B-4481-A810-2FBB3294CEAD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iosChallenge/Properties/PropertyDetail/PropertyDetailViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "986BE842-9687-400C-BEB5-F472EF0A810D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iosChallenge/Properties/PropertyDetail/PropertyDetailInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "configureCells(property:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4069BEB0-05BE-404F-BE3B-5A4791811EA9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iosChallenge/Properties/PropertyList/PropertyListCells/PropertyAdCell.swift"
+            filePath = "iosChallenge/Properties/PropertyDetail/PropertyDetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
-            landmarkName = "manageFavorites(addFav:)"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

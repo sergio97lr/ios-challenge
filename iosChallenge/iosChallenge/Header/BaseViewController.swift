@@ -9,12 +9,12 @@ import UIKit
 import SwiftUI
 
 class BaseViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupHeaderView()
-        self.setupCustomBackButton()
+        self.setupNavigationController()
     }
     
     private func setupHeaderView() {
@@ -27,10 +27,10 @@ class BaseViewController: UIViewController {
         
         if UIDevice.current.userInterfaceIdiom == .pad {
             NSLayoutConstraint.activate([
-                            navBar.view.topAnchor.constraint(equalTo: view.topAnchor),
-                            navBar.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                            navBar.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                            navBar.view.heightAnchor.constraint(equalToConstant: 60)
+                navBar.view.topAnchor.constraint(equalTo: view.topAnchor),
+                navBar.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                navBar.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                navBar.view.heightAnchor.constraint(equalToConstant: 60)
             ])
         } else {
             NSLayoutConstraint.activate([
@@ -42,21 +42,36 @@ class BaseViewController: UIViewController {
         }
     }
     
-    private func setupCustomBackButton() {
-            if self.navigationController?.viewControllers.first != self {
-                self.navigationItem.hidesBackButton = true
-                let backButton = UIButton(type: .system)
-                backButton.setTitle("List", for: .normal)
-                backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-                backButton.tintColor = UIColor.pinkIdealista
-                backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-                let backBarButtonItem = UIBarButtonItem(customView: backButton)
-                self.navigationItem.leftBarButtonItem = backBarButtonItem
-            }
+    private func setupNavigationController() {
+        self.setNavigationAppareance()
+        self.customBackButton()
+    }
+    
+    private func setNavigationAppareance() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .clear
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.isTranslucent = true
+    }
+    
+    private func customBackButton() {
+        if self.navigationController?.viewControllers.first != self {
+            self.navigationItem.hidesBackButton = true
+            let backButton = UIButton(type: .system)
+            backButton.setTitle("List", for: .normal)
+            backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+            backButton.tintColor = UIColor.pinkIdealista
+            backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+            let backBarButtonItem = UIBarButtonItem(customView: backButton)
+            self.navigationItem.leftBarButtonItem = backBarButtonItem
         }
-        
-        @objc private func backButtonTapped() {
-            self.navigationController?.popViewController(animated: true)
-        }
+    }
+    
+    @objc private func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 
