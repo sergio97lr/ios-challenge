@@ -12,16 +12,16 @@ class PropertyAdCell: UITableViewCell {
     @IBOutlet weak var adView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var infoStackView: UIStackView!
-    @IBOutlet var operationLabel: UILabel!
+    @IBOutlet weak var operationLabel: UILabel!
     @IBOutlet weak var propertyAddressLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var parkingLabel: UILabel!
     @IBOutlet weak var additionalInfoLabel: UILabel!
-    @IBOutlet var favIcon: UIImageView!
-    @IBOutlet var favTextLabel: UILabel!
+    @IBOutlet weak var favIcon: UIImageView!
+    @IBOutlet weak var favTextLabel: UILabel!
     
-    var images: [UIImage] = []
+    var imageList: [(image: UIImage, tag: String)] = []
     var property: PropertyListEntity?
     var favAd: Bool = false
     var favoriteAd: (String, Date)? = nil
@@ -39,17 +39,13 @@ class PropertyAdCell: UITableViewCell {
         self.favTextLabel.isHidden = true
         self.favAd = false
         self.favIcon.image = UIImage(named: "noFavIcon")
-        self.setNeedsLayout()
-        self.layoutIfNeeded()
-        self.infoStackView.setNeedsLayout()
-        self.infoStackView.layoutIfNeeded()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
-        self.collectionView.register(UINib(nibName: "ImagesAdListCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ImagesAdListCollectionViewCell")
+        self.collectionView.register(UINib(nibName: "ImagesAdsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ImagesAdsCollectionViewCell")
     }
     
     func configureCell(property: PropertyListEntity?){
@@ -67,10 +63,6 @@ class PropertyAdCell: UITableViewCell {
             self.infoStackView.spacing = 12
             let dates = Utils.formatDate(date: adFav.1)
             self.favTextLabel.text = "Added to favorites on \(dates.formattedDate) at \(dates.formattedTime)"
-            self.setNeedsLayout()
-            self.layoutIfNeeded()
-            self.infoStackView.setNeedsLayout()
-            self.infoStackView.layoutIfNeeded()
         }
         
     }
@@ -85,7 +77,8 @@ class PropertyAdCell: UITableViewCell {
             DispatchQueue.global().async { [weak self] in
                 if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
                     DispatchQueue.main.async {
-                        self?.images.append(image)
+                        let imageListItem = (image: image, tag: propertyImage.tag)
+                        self?.imageList.append(imageListItem)
                     }
                 }
                 group.leave()
@@ -223,11 +216,6 @@ class PropertyAdCell: UITableViewCell {
             userDefaults.removeObject(forKey: property.propertyCode)
             userDefaults.synchronize()
         }
-        
-        self.setNeedsLayout()
-        self.layoutIfNeeded()
-        self.infoStackView.setNeedsLayout()
-        self.infoStackView.layoutIfNeeded()
     }
     
     func isFavoriteAd() -> (codeFav: String, dateFav: Date)? {
@@ -246,12 +234,14 @@ class PropertyAdCell: UITableViewCell {
 // MARK: - UICollectionViewDataSource
 extension PropertyAdCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return self.imageList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagesAdListCollectionViewCell", for: indexPath) as! ImagesAdListCollectionViewCell
-        cell.imagesAds.image = images[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagesAdsCollectionViewCell", for: indexPath) as! ImagesAdsCollectionViewCell
+        let image = self.imageList[indexPath.item].image
+        let tag = self.imageList[indexPath.item].tag
+        cell.configureCell(image: image, tag: tag)
         return cell
     }
 }
