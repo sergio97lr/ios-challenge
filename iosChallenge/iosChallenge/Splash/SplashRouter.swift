@@ -27,11 +27,12 @@ extension SplashRouter: SplashRouterProtocol {
         let propertyListRouter = PropertyListRouter()
         let propertyListViewController = propertyListRouter.view
         propertyListViewController?.propertyList = propertyList
+        let navigationController = UINavigationController(rootViewController: propertyListViewController!)
         
         DispatchQueue.main.async {
             if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let window = scene.windows.first {
-                window.rootViewController = propertyListViewController
+                window.rootViewController = navigationController
                 window.makeKeyAndVisible()
             }
         }

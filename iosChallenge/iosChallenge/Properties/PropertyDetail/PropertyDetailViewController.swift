@@ -10,14 +10,11 @@ import UIKit
 class PropertyDetailViewController: BaseViewController {
 
     var presenter: PropertyDetailPresenterProtocol?
+    var originalPropertyCode: String?
     
     override func viewDidLoad() {
-        
-        showBackButton = true
-        
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
 
 

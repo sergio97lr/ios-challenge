@@ -10,26 +10,21 @@ import SwiftUI
 
 class BaseViewController: UIViewController {
 
-    var showBackButton: Bool = false
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupHeaderView()
+        self.setupCustomBackButton()
     }
     
     private func setupHeaderView() {
-        let navBar = UIHostingController(rootView: HeaderView(showBackButton: showBackButton, onBackButtonPressed: {
-            self.navigationController?.popViewController(animated: true)
-        }))
+        let navBar = UIHostingController(rootView: HeaderView())
         
-        // Agregar la cabecera a la vista
         addChild(navBar)
         navBar.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navBar.view)
         navBar.didMove(toParent: self)
         
-        // Configurar las restricciones
         if UIDevice.current.userInterfaceIdiom == .pad {
             NSLayoutConstraint.activate([
                             navBar.view.topAnchor.constraint(equalTo: view.topAnchor),
@@ -46,5 +41,22 @@ class BaseViewController: UIViewController {
             ])
         }
     }
+    
+    private func setupCustomBackButton() {
+            if self.navigationController?.viewControllers.first != self {
+                self.navigationItem.hidesBackButton = true
+                let backButton = UIButton(type: .system)
+                backButton.setTitle("List", for: .normal)
+                backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+                backButton.tintColor = UIColor.pinkIdealista
+                backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+                let backBarButtonItem = UIBarButtonItem(customView: backButton)
+                self.navigationItem.leftBarButtonItem = backBarButtonItem
+            }
+        }
+        
+        @objc private func backButtonTapped() {
+            self.navigationController?.popViewController(animated: true)
+        }
 }
 

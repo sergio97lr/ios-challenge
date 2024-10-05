@@ -21,6 +21,8 @@ class PropertyAdCell: UITableViewCell {
     @IBOutlet weak var favIcon: UIImageView!
     @IBOutlet weak var favTextLabel: UILabel!
     
+    weak var delegate: PropertyAdCellDelegate?
+    
     var imageList: [(image: UIImage, tag: String)] = []
     var property: PropertyListEntity?
     var favAd: Bool = false
@@ -53,6 +55,9 @@ class PropertyAdCell: UITableViewCell {
         self.selectionStyle = .none
         self.configurePropertyImages()
         self.configureStackView()
+        self.adView.layer.borderWidth = 1
+        self.adView.layer.borderColor = UIColor.pinkIdealista.cgColor
+        self.configureNavigation()
         self.addFavTapAction()
         self.favTextLabel.isHidden = true
         self.favoriteAd = self.isFavoriteAd()
@@ -227,6 +232,18 @@ class PropertyAdCell: UITableViewCell {
             return (codeFav, dateFav)
         }
         return nil
+    }
+    
+    // MARK: Navigations
+    func configureNavigation(){
+        let stackViewGesture = UITapGestureRecognizer(target: self, action: #selector(stackViewTapped))
+        self.infoStackView.isUserInteractionEnabled = true
+        self.infoStackView.addGestureRecognizer(stackViewGesture)
+    }
+    
+    @objc func stackViewTapped() {
+        guard let property = self.property else { return }
+        self.delegate?.navigateToDetail(propertyCode: property.propertyCode)
     }
     
 }

@@ -18,7 +18,6 @@ class PropertyListViewController: BaseViewController {
     var propertyList: PropertiesEntity?
     
     override func viewDidLoad() {
-        showBackButton = false
         super.viewDidLoad()
 
         self.setupView()
@@ -31,6 +30,7 @@ class PropertyListViewController: BaseViewController {
                                            forCellReuseIdentifier: "PropertyAdCell")
         self.propertyListTableView.dataSource = self
         self.propertyListTableView.delegate = self
+        propertyListTableView.separatorStyle = .none
         self.propertyListTableViewTopConstraint.constant = CGFloat(70)
     }
     
@@ -56,8 +56,13 @@ extension PropertyListViewController: UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "PropertyAdCell", for: indexPath) as! PropertyAdCell
         let property = self.propertyList?[indexPath.row]
         cell.configureCell(property: property)
+        cell.delegate = self
         return cell
     }
-    
-    
 }
+
+extension PropertyListViewController: PropertyAdCellDelegate {
+    func navigateToDetail(propertyCode: String) {
+            self.presenter?.navigateToDetail(propertyCode: propertyCode)
+        }
+    }

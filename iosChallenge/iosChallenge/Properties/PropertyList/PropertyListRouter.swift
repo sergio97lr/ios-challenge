@@ -22,5 +22,12 @@ class PropertyListRouter {
 
 // MARK: PropertyListRouterProtocol
 extension PropertyListRouter: PropertyListRouterProtocol {
-    
+    func navigateToDetail(propertyCode: String) {
+        let propertyDetailRouter = PropertyDetailRouter()
+        let propertyDetailView = propertyDetailRouter.view
+        propertyDetailView?.originalPropertyCode = propertyCode
+        if let propertyDetailView = propertyDetailView {
+            self.view.navigationController?.pushViewController(propertyDetailView, animated: true)
+        }
+    }
 }
