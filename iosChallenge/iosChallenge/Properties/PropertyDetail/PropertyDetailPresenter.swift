@@ -8,7 +8,7 @@
 import UIKit
 
 enum DetailCellType {
-    case propertyDetail(originalPropertyCode: String ,images: [ImageDetail], addres: String, district: String, municipality: String, price: PriceInfoDetail, rooms: Int, size: Double, exterior: Bool, propertyType: String, operation: String)
+    case propertyDetail(originalPropertyCode: String ,images: [ImageDetail], address: String, district: String, municipality: String, price: PriceInfoDetail, rooms: Int, size: Double, exterior: Bool, propertyType: String, operation: String, floor: String)
     case title(text: String)
     case propertyComment(propertyComment: String)
     case additionalPropertyInfo(text:String)
@@ -32,13 +32,9 @@ class PropertyDetailPresenter {
 
 // MARK: PropertyDetailPresenterProtocol
 extension PropertyDetailPresenter: PropertyDetailPresenterProtocol {
-    func addPropertyParameters(originalPropertyCode: String?, address: String?, district: String?, municipality: String?) {
-        self.propertyDetail?.originalPropertyCode = originalPropertyCode
-        self.propertyDetail?.address = address
-        self.propertyDetail?.district = district
-        self.propertyDetail?.municipality = municipality
+    func addPropertyParameters(extraParams: ExtraParams) {
         
-        self.interactor?.configureCells(property: self.propertyDetail)
+        self.interactor?.configureCells(property: self.propertyDetail, extraParams: extraParams)
     }
     
     func viewDidLoad() {

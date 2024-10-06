@@ -16,14 +16,14 @@ class PropertyDetailInteractor {
 
 // MARK: PropertyDetailInputInteractorProtocol
 extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
-    func configureCells(property: PropertyEntity?) {
+    func configureCells(property: PropertyEntity?, extraParams: ExtraParams) {
         guard let property = property else {return}
         
         let images = property.multimedia.images
-        let address = property.address ?? ""
-        let municipality = property.municipality ?? ""
-        let originalPropertyCode = property.originalPropertyCode ?? ""
-        let district = property.district ?? ""
+        let address = extraParams.address
+        let municipality = extraParams.municipality
+        let originalPropertyCode = extraParams.originalPropertyCode
+        let district = extraParams.district
         
         let extendedPropertyType = property.extendedPropertyType
         let price = property.priceInfo
@@ -39,19 +39,28 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
             operation = "For Rent"
         }
         
-        
-        arrayCells.append(.propertyDetail(originalPropertyCode: originalPropertyCode, images: images, addres: address, district: district, municipality: municipality, price: price, rooms: roomNumber, size: size, exterior: exterior, propertyType: extendedPropertyType, operation: operation))
+        arrayCells.append(.propertyDetail(originalPropertyCode: originalPropertyCode, images: images, address: address, district: district, municipality: municipality, price: price, rooms: roomNumber, size: size, exterior: exterior, propertyType: extendedPropertyType, operation: operation, floor: floor))
         
         arrayCells.append(.title(text: "Advertiser's comment"))
         let propertyComment = property.propertyComment
         arrayCells.append(.propertyComment(propertyComment: propertyComment))
         
         arrayCells.append(.title(text: "Basic features"))
-        let bathNumber = characteristics.bathNumber
         var basicFeatures: [String] = []
+        let bathNumber = characteristics.bathNumber
         basicFeatures.append("\(size) constructed")
         basicFeatures.append("\(roomNumber) bedrooms")
         basicFeatures.append("\(bathNumber) bathrooms")
+        
+        let parking = extraParams.parking
+        if parking {
+            let parkingIncluded = extraParams.parkingIncluded
+            if parkingIncluded {
+                basicFeatures.append("Parking space included in the price")
+            } else {
+                basicFeatures.append("Parking space not included in the price")
+            }
+        }
         
         for basicFeature in basicFeatures {
             arrayCells.append(.additionalPropertyInfo(text: basicFeature))
@@ -76,8 +85,10 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
         }
         
         arrayCells.append(.title(text: "Energy performance certificate"))
-        arrayCells.append(.additionalPropertyInfo(text: "Consumption: e"))
-        arrayCells.append(.additionalPropertyInfo(text: "Emissions: e"))
+        let consumption = property.energyCertification.energyConsumption
+        let emissions = property.energyCertification.emissions
+        arrayCells.append(.additionalPropertyInfo(text: "Consumption: \(consumption)"))
+        arrayCells.append(.additionalPropertyInfo(text: "Emissions: \(emissions)"))
         
         arrayCells.append(.title(text: "Price"))
         arrayCells.append(.additionalPropertyInfo(text: "\(price.amount)\(price.currencySuffix)"))

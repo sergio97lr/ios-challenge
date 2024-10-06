@@ -40,7 +40,7 @@ class PropertyAdCell: UITableViewCell {
         self.additionalInfoLabel.text = ""
         self.favTextLabel.isHidden = true
         self.favAd = false
-        self.favIcon.image = UIImage(named: "noFavIcon")
+        self.favIcon.image = UIImage(named: "noFavIconList")
     }
     
     override func awakeFromNib() {
@@ -183,7 +183,7 @@ class PropertyAdCell: UITableViewCell {
                               duration: 1.5,
                               options: .transitionCrossDissolve,
                               animations: {
-                self.favIcon.image = UIImage(named: "noFavIcon")
+                self.favIcon.image = UIImage(named: "noFavIconListreload")
             })
             
         }
@@ -197,8 +197,10 @@ class PropertyAdCell: UITableViewCell {
             let favProperty = ["code": property.propertyCode, "date": date] as [String : Any]
             userDefaults.set(favProperty, forKey: property.propertyCode)
             userDefaults.synchronize()
-            UIView.animate(withDuration: 1.5, animations: {
+            self.favTextLabel.alpha = 0.0
+            UIView.animate(withDuration: 1.75, animations: {
                 self.favTextLabel.isHidden = false
+                self.favTextLabel.alpha = 1.0
             })
             self.infoStackView.spacing = 12
             let dates = Utils.formatDate(date: date)
@@ -206,6 +208,7 @@ class PropertyAdCell: UITableViewCell {
         } else {
             UIView.animate(withDuration: 1.5, animations: {
                 self.favTextLabel.isHidden = true
+                self.favTextLabel.alpha = 0.0
             })
             userDefaults.removeObject(forKey: property.propertyCode)
             userDefaults.synchronize()
@@ -232,7 +235,8 @@ class PropertyAdCell: UITableViewCell {
     
     @objc func stackViewTapped() {
         guard let property = self.property else { return }
-        self.delegate?.navigateToDetail(propertyCode: property.propertyCode, address: property.address, district: property.district, municipality: property.municipality)
+        let propertyExtraParams: ExtraParams = ExtraParams(originalPropertyCode: property.propertyCode, address: property.address, district: property.district, municipality: property.municipality, parking: property.parkingSpace?.hasParkingSpace ?? false, parkingIncluded: property.parkingSpace?.parkingPriceIncluded ?? false)
+        self.delegate?.navigateToDetail(extraParams: propertyExtraParams)
     }
     
 }

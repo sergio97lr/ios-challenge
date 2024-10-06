@@ -8,7 +8,7 @@
 // MARK: - View to Presenter
 protocol PropertyDetailPresenterProtocol {
     func viewDidLoad()
-    func addPropertyParameters(originalPropertyCode: String?, address: String?, district: String?, municipality: String?)
+    func addPropertyParameters(extraParams: ExtraParams)
 }
 
 // MARK: - Presenter to View
@@ -25,7 +25,7 @@ protocol PropertyDetailRouterProtocol {
 // MARK: - Presenter to Interactor {
 protocol PropertyDetailInputInteractorProtocol {
     func getProperty() async -> PropertyEntity?
-    func configureCells(property: PropertyEntity?)
+    func configureCells(property: PropertyEntity?, extraParams: ExtraParams)
     
 }
 

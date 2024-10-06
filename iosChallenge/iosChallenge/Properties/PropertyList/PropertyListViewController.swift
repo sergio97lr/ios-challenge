@@ -18,10 +18,11 @@ class PropertyListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.setupView()
-        
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.propertyListTableView.reloadData()
     }
     
     func setupView() {
@@ -61,7 +62,7 @@ extension PropertyListViewController: UITableViewDelegate, UITableViewDataSource
 }
 
 extension PropertyListViewController: PropertyAdCellDelegate {
-    func navigateToDetail(propertyCode: String, address: String, district: String, municipality: String) {
-        self.presenter?.navigateToDetail(propertyCode: propertyCode, address: address, district: district, municipality: municipality)
+    func navigateToDetail(extraParams: ExtraParams) {
+        self.presenter?.navigateToDetail(extraParams: extraParams)
         }
     }

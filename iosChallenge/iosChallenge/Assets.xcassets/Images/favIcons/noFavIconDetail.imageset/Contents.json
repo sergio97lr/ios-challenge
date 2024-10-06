@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "corazon-gris.png",
+      "filename" : "noFav.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "corazon-gris@2x.png",
+      "filename" : "noFav2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "corazon-gris@3x.png",
+      "filename" : "noFav3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

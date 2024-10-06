@@ -22,8 +22,8 @@ class PropertyListPresenter {
 
 // MARK: PropertyListPresenterProtocol
 extension PropertyListPresenter: PropertyListPresenterProtocol {
-    func navigateToDetail(propertyCode: String, address: String, district: String, municipality: String) {
-        self.router?.navigateToDetail(propertyCode: propertyCode, address: address, district: district, municipality: municipality)
+    func navigateToDetail(extraParams: ExtraParams) {
+        self.router?.navigateToDetail(extraParams: extraParams)
     }
     
     

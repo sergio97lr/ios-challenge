@@ -22,13 +22,10 @@ class PropertyListRouter {
 
 // MARK: PropertyListRouterProtocol
 extension PropertyListRouter: PropertyListRouterProtocol {
-    func navigateToDetail(propertyCode: String, address: String, district: String, municipality: String) {
+    func navigateToDetail(extraParams: ExtraParams) {
         let propertyDetailRouter = PropertyDetailRouter()
         let propertyDetailView = propertyDetailRouter.view
-        propertyDetailView?.originalPropertyCode = propertyCode
-        propertyDetailView?.address = address
-        propertyDetailView?.district = district
-        propertyDetailView?.municipality = municipality
+        propertyDetailView?.extraParams = extraParams
         if let propertyDetailView = propertyDetailView {
             self.view.navigationController?.pushViewController(propertyDetailView, animated: true)
         }

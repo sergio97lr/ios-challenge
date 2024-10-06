@@ -88,7 +88,7 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noFavIcon" translatesAutoresizingMaskIntoConstraints="NO" id="7Kq-Dd-7JY">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noFavIconList" translatesAutoresizingMaskIntoConstraints="NO" id="7Kq-Dd-7JY">
                                 <rect key="frame" x="481" y="220" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="1lq-IX-9Wd"/>
@@ -137,12 +137,12 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="noFavIcon" width="28" height="28"/>
+        <image name="noFavIconList" width="42.666667938232422" height="42.666667938232422"/>
         <namedColor name="pinkIdealista">
             <color red="0.65490196078431373" green="0.20392156862745098" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

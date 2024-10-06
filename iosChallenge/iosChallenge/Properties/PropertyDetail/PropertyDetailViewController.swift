@@ -10,10 +10,7 @@ import UIKit
 class PropertyDetailViewController: BaseViewController {
 
     var presenter: PropertyDetailPresenterProtocol?
-    var originalPropertyCode: String?
-    var address: String?
-    var district: String?
-    var municipality: String?
+    var extraParams: ExtraParams?
     var cells: [DetailCellType] = []
     
     @IBOutlet weak var propertyDetailTableView: UITableView!
@@ -44,7 +41,8 @@ extension PropertyDetailViewController: PropertyDetailViewProtocol {
     
     
     func updatePropertyEntity() {
-        self.presenter?.addPropertyParameters(originalPropertyCode: self.originalPropertyCode, address: self.address, district: self.district, municipality: self.municipality)
+        guard let extraParams = self.extraParams else {return}
+        self.presenter?.addPropertyParameters(extraParams: extraParams)
     }
     
     
@@ -63,9 +61,9 @@ extension PropertyDetailViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellType = cells[indexPath.row]
         switch cellType {
-        case .propertyDetail(let originalPropertyCode, let images, let addres, let district, let municipality, let price, let rooms, let size, let exterior, let propertyType, let operation):
+        case .propertyDetail(let originalPropertyCode, let images, let address, let district, let municipality, let price, let rooms, let size, let exterior, let propertyType, let operation, let floor):
             let cell = tableView.dequeueReusableCell(withIdentifier: "PropertyDetailTableViewCell", for: indexPath) as! PropertyDetailTableViewCell
-            cell.configureCell(originalPropertyCode: originalPropertyCode, images: images, addres: addres, district: district, municipality: municipality, price: price, rooms: rooms, size: size, exterior: exterior, propertyType: propertyType, operation: operation)
+            cell.configureCell(originalPropertyCode: originalPropertyCode, images: images, address: address, district: district, municipality: municipality, price: price, rooms: rooms, size: size, exterior: exterior, propertyType: propertyType, operation: operation, floor: floor)
             return cell
         case .title(let text):
             print("")

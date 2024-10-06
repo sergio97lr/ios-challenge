@@ -50,3 +50,13 @@ class Utils {
             }
         }
 }
+
+struct ExtraParams {
+    let originalPropertyCode: String
+    let address: String
+    let district: String
+    let municipality: String
+    let parking: Bool
+    let parkingIncluded: Bool
+    
+}
