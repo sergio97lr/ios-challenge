@@ -12,10 +12,15 @@ class PropertyDetailInteractor {
     var presenter: PropertyDetailOutputInteractorProtocol?
     var arrayCells: [DetailCellType] = []
     
+    var backButtonText = ""
 }
 
 // MARK: PropertyDetailInputInteractorProtocol
 extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
+    func getBackButtonText() {
+        self.presenter?.setBackButtonText(text: self.backButtonText)
+    }
+    
     func configureCells(property: PropertyEntity?, extraParams: ExtraParams) {
         guard let property = property else {return}
         
@@ -48,7 +53,7 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
         arrayCells.append(.title(text: "Basic features"))
         var basicFeatures: [String] = []
         let bathNumber = characteristics.bathNumber
-        basicFeatures.append("\(size) constructed")
+        basicFeatures.append("\(Int(size))m\u{00B2} constructed")
         basicFeatures.append("\(roomNumber) bedrooms")
         basicFeatures.append("\(bathNumber) bathrooms")
         
@@ -87,8 +92,8 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
         arrayCells.append(.title(text: "Energy performance certificate"))
         let consumption = property.energyCertification.energyConsumption
         let emissions = property.energyCertification.emissions
-        arrayCells.append(.additionalPropertyInfo(text: "Consumption: \(consumption)"))
-        arrayCells.append(.additionalPropertyInfo(text: "Emissions: \(emissions)"))
+        arrayCells.append(.additionalPropertyInfo(text: "Consumption: \(consumption.type)"))
+        arrayCells.append(.additionalPropertyInfo(text: "Emissions: \(emissions.type)"))
         
         arrayCells.append(.title(text: "Price"))
         arrayCells.append(.additionalPropertyInfo(text: "\(price.amount)\(price.currencySuffix)"))
@@ -96,7 +101,12 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
         let priceSize = price.amount/size
         arrayCells.append(.additionalPropertyInfo(text: "\(priceSize) m\u{00B2}"))
         
-        
+        if extendedPropertyType.contains("flat") {
+            self.backButtonText = "Flat in \(address)"
+        } else {
+            self.backButtonText = "House in \(address)"
+        }
+
         
         self.presenter?.updateCells(cells: arrayCells)
     }

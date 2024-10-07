@@ -15,7 +15,7 @@ class SplashRouter {
         let interactor = SplashInteractor()
         let presenter = SplashPresenter(view: view, interactor: interactor, router: self)
         
-        view.presenter = presenter
+        self.view.presenter = presenter
         interactor.presenter = presenter
     }
     

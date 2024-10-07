@@ -32,6 +32,11 @@ class PropertyDetailPresenter {
 
 // MARK: PropertyDetailPresenterProtocol
 extension PropertyDetailPresenter: PropertyDetailPresenterProtocol {
+ 
+    func showFullComment(comment: String) {
+        self.router?.showFullComment(comment: comment)
+    }
+    
     func addPropertyParameters(extraParams: ExtraParams) {
         
         self.interactor?.configureCells(property: self.propertyDetail, extraParams: extraParams)
@@ -42,6 +47,7 @@ extension PropertyDetailPresenter: PropertyDetailPresenterProtocol {
             if let property = await self.interactor?.getProperty() {
                 self.propertyDetail = property
                 self.view?.updatePropertyEntity()
+                self.interactor?.getBackButtonText()
             }
             
         }
@@ -52,6 +58,10 @@ extension PropertyDetailPresenter: PropertyDetailPresenterProtocol {
 
 // MARK: PropertyDetailOutputInteractorProtocol
 extension PropertyDetailPresenter: PropertyDetailOutputInteractorProtocol {
+    func setBackButtonText(text: String) {
+        self.view?.setBackButtonText(text: text)
+    }
+    
     func updateCells(cells: [DetailCellType]) {
         self.view?.updateCells(cells: cells)
     }

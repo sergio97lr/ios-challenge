@@ -14,7 +14,7 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         
         self.setupHeaderView()
-        self.setupNavigationController()
+        self.setNavigationAppareance()
     }
     
     private func setupHeaderView() {
@@ -42,11 +42,6 @@ class BaseViewController: UIViewController {
         }
     }
     
-    private func setupNavigationController() {
-        self.setNavigationAppareance()
-        self.customBackButton()
-    }
-    
     private func setNavigationAppareance() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
@@ -57,13 +52,13 @@ class BaseViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = true
     }
     
-    private func customBackButton() {
+    func setCustomBackButton(title: String) {
         if self.navigationController?.viewControllers.first != self {
             self.navigationItem.hidesBackButton = true
             let backButton = UIButton(type: .system)
-            backButton.setTitle("List", for: .normal)
+            backButton.setTitle(title, for: .normal)
             backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-            backButton.tintColor = UIColor.pinkIdealista
+            backButton.tintColor = IdealistaColors.pinkIdealista
             backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
             let backBarButtonItem = UIBarButtonItem(customView: backButton)
             self.navigationItem.leftBarButtonItem = backBarButtonItem

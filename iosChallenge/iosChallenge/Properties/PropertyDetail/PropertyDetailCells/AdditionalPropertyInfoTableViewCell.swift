@@ -9,15 +9,17 @@ import UIKit
 
 class AdditionalPropertyInfoTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var additionalInfoLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func configureCell(text: String) {
+        let bulletPoint = "•"
+        let completeText = "\(bulletPoint) \(text)"
+        self.additionalInfoLabel.text = completeText
     }
     
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 class PropertyDetailViewController: BaseViewController {
-
+    
     var presenter: PropertyDetailPresenterProtocol?
     var extraParams: ExtraParams?
     var cells: [DetailCellType] = []
@@ -20,18 +20,29 @@ class PropertyDetailViewController: BaseViewController {
         self.presenter?.viewDidLoad()
         self.setupView()
     }
-
+    
     func setupView() {
-        self.propertyDetailTableView.register(UINib(nibName: "PropertyDetailTableViewCell", bundle: nil),
-                                           forCellReuseIdentifier: "PropertyDetailTableViewCell")
+        self.registerCells()
         self.propertyDetailTableView.dataSource = self
         self.propertyDetailTableView.delegate = self
+    }
+    
+    func registerCells() {
+        self.propertyDetailTableView.register(UINib(nibName: "PropertyDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "PropertyDetailTableViewCell")
+        self.propertyDetailTableView.register(UINib(nibName: "TitleTableViewCell", bundle: nil), forCellReuseIdentifier: "TitleTableViewCell")
+        self.propertyDetailTableView.register(UINib(nibName: "CommentTableViewCell", bundle: nil), forCellReuseIdentifier: "CommentTableViewCell")
+        self.propertyDetailTableView.register(UINib(nibName: "AdditionalPropertyInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "AdditionalPropertyInfoTableViewCell")
+        
     }
     
 }
 
 // MARK: PropertyDetailViewProtocol
 extension PropertyDetailViewController: PropertyDetailViewProtocol {
+    func setBackButtonText(text: String) {
+        self.setCustomBackButton(title: text)
+    }
+    
     func updateCells(cells: [DetailCellType]) {
         self.cells = cells
         DispatchQueue.main.async{
@@ -66,12 +77,25 @@ extension PropertyDetailViewController: UITableViewDelegate, UITableViewDataSour
             cell.configureCell(originalPropertyCode: originalPropertyCode, images: images, address: address, district: district, municipality: municipality, price: price, rooms: rooms, size: size, exterior: exterior, propertyType: propertyType, operation: operation, floor: floor)
             return cell
         case .title(let text):
-            print("")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TitleTableViewCell", for: indexPath) as! TitleTableViewCell
+            cell.configureCell(text: text)
+            return cell
         case .propertyComment(let propertyComment):
-            print("")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
+            cell.configureCell(propertyComment: propertyComment)
+            cell.delegate = self
+            return cell
         case .additionalPropertyInfo(let text):
-            print("")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AdditionalPropertyInfoTableViewCell", for: indexPath) as! AdditionalPropertyInfoTableViewCell
+            cell.configureCell(text: text)
+            return cell
         }
-        return UITableViewCell()
     }
+}
+
+extension PropertyDetailViewController: CommentCellDelegate {
+    func showFullComment(comment: String) {
+        self.presenter?.showFullComment(comment: comment)
+    }
+    
 }

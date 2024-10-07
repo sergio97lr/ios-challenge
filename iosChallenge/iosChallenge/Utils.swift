@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Utils {
     
@@ -59,4 +60,22 @@ struct ExtraParams {
     let parking: Bool
     let parkingIncluded: Bool
     
+}
+
+extension UITextView {
+    func numberOfLines() -> Int {
+        let layoutManager = self.layoutManager
+        let numberOfGlyphs = layoutManager.numberOfGlyphs
+        var lineRange = NSRange(location: 0, length: 0)
+        var index = 0
+        var numberOfLines = 0
+        
+        while index < numberOfGlyphs {
+            layoutManager.lineFragmentRect(forGlyphAt: index, effectiveRange: &lineRange)
+            index = NSMaxRange(lineRange)
+            numberOfLines += 1
+        }
+        
+        return numberOfLines
+    }
 }

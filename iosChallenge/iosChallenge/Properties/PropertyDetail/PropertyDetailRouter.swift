@@ -15,12 +15,17 @@ class PropertyDetailRouter {
         let interactor = PropertyDetailInteractor()
         let presenter = PropertyDetailPresenter(view: view, interactor: interactor, router: self)
         
-        view.presenter = presenter
+        self.view.presenter = presenter
         interactor.presenter = presenter
     }
 }
 
 // MARK: PropertyDetailRouterProtocol
 extension PropertyDetailRouter: PropertyDetailRouterProtocol {
+    func showFullComment(comment: String) {
+        let commentViewController = PropertyCommentViewController(comment: comment)
+        self.view.navigationController?.pushViewController(commentViewController, animated: true)
+    }
+    
     
 }

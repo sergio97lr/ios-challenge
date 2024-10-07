@@ -56,7 +56,7 @@ class PropertyAdCell: UITableViewCell {
         self.configurePropertyImages()
         self.configureStackView()
         self.adView.layer.borderWidth = 1
-        self.adView.layer.borderColor = UIColor.pinkIdealista.cgColor
+        self.adView.layer.borderColor = IdealistaColors.pinkIdealista?.cgColor
         self.configureNavigation()
         self.addFavTapAction()
         self.favTextLabel.isHidden = true
