@@ -22,6 +22,10 @@ class PropertyListPresenter {
 
 // MARK: PropertyListPresenterProtocol
 extension PropertyListPresenter: PropertyListPresenterProtocol {
+    func navigateToDetail(extraParams: ExtraParams) {
+        self.router?.navigateToDetail(extraParams: extraParams)
+    }
+    
     
 }
 

@@ -73,4 +73,4 @@ struct EnergyType: Decodable {
     let type: String
 }
 
-typealias propertyDetailEntity = PropertyDetailEntity
+typealias PropertyEntity = PropertyDetailEntity
