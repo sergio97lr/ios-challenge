@@ -27,7 +27,9 @@ class PropertyListViewController: BaseViewController {
     
     func setupView() {
         self.propertyListTableView.register(UINib(nibName: "PropertyAdCell", bundle: nil),
-                                           forCellReuseIdentifier: "PropertyAdCell")
+                                            forCellReuseIdentifier: "PropertyAdCell")
+        self.propertyListTableView.register(UINib(nibName: "PropertyAdsIpadCell", bundle: nil),
+                                            forCellReuseIdentifier: "PropertyAdsIpadCell")
         self.propertyListTableView.dataSource = self
         self.propertyListTableView.delegate = self
         propertyListTableView.separatorStyle = .none
@@ -49,20 +51,38 @@ extension PropertyListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.propertyList?.count ?? 1
+        var p = 1/2
+        print("pppp \(p)")
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return (self.propertyList?.count ?? 2 + 1)/2
+        } else {
+            return self.propertyList?.count ?? 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PropertyAdCell", for: indexPath) as! PropertyAdCell
-        let property = self.propertyList?[indexPath.row]
-        cell.configureCell(property: property)
-        cell.delegate = self
-        return cell
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PropertyAdsIpadCell", for: indexPath) as! PropertyAdsIpadCell
+            
+            let firstIndex = indexPath.row * 2
+            let secondIndex = firstIndex + 1
+            let propertyLeft = self.propertyList?[firstIndex]
+            let propertyRight = self.propertyList?[secondIndex]
+            cell.configureCell(leftProperty: propertyLeft, rightProperty: propertyRight)
+            cell.delegate = self
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PropertyAdCell", for: indexPath) as! PropertyAdCell
+            let property = self.propertyList?[indexPath.row]
+            cell.configureCell(property: property)
+            cell.delegate = self
+            return cell
+        }
     }
 }
 
 extension PropertyListViewController: PropertyAdCellDelegate {
     func navigateToDetail(extraParams: ExtraParams) {
         self.presenter?.navigateToDetail(extraParams: extraParams)
-        }
     }
+}

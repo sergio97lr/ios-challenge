@@ -17,6 +17,8 @@ class PropertyDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var extraInfoLabel: UILabel!
     @IBOutlet weak var favIcon: UIImageView!
     @IBOutlet weak var favLabel: UILabel!
+    @IBOutlet weak var containerTraillingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerLeadingConstraint: NSLayoutConstraint!
     
     var imageList: [(image: UIImage, tag: String)] = []
     var favAd = false

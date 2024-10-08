@@ -24,7 +24,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="Iq6-Vt-wtG"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="NotoSansOriya-Bold" family="Noto Sans Oriya" pointSize="20"/>
+                        <fontDescription key="fontDescription" name="NotoSansOriya-Bold" family="Noto Sans Oriya" pointSize="30"/>
                         <color key="textColor" name="pinkIdealista"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -42,68 +42,68 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6WT-Pt-ZE3" userLabel="Address">
-                        <rect key="frame" x="36" y="376" width="398" height="26.666666666666686"/>
+                        <rect key="frame" x="20" y="376" width="430" height="26.666666666666686"/>
                         <fontDescription key="fontDescription" name="NotoSansOriya-Bold" family="Noto Sans Oriya" pointSize="19"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WO-jW-VUm" userLabel="District">
-                        <rect key="frame" x="36" y="410.66666666666669" width="398" height="26.666666666666686"/>
+                        <rect key="frame" x="20" y="410.66666666666669" width="430" height="26.666666666666686"/>
                         <fontDescription key="fontDescription" name="NotoSansOriya" family="Noto Sans Oriya" pointSize="19"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZCH-Kn-7pN" userLabel="Price">
-                        <rect key="frame" x="36" y="445.33333333333331" width="414" height="59.333333333333314"/>
+                        <rect key="frame" x="20" y="445.33333333333331" width="430" height="59.333333333333314"/>
                         <fontDescription key="fontDescription" name="NotoSansOriya-Bold" family="Noto Sans Oriya" pointSize="26"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="73S-Nn-kum" userLabel="ExtraInfo">
-                        <rect key="frame" x="36" y="516.66666666666663" width="398" height="21.333333333333371"/>
+                        <rect key="frame" x="20" y="516.66666666666663" width="430" height="21.333333333333371"/>
                         <fontDescription key="fontDescription" name="NotoSansOriya" family="Noto Sans Oriya" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noFavIconDetail" translatesAutoresizingMaskIntoConstraints="NO" id="Vus-YE-pbD">
-                        <rect key="frame" x="36" y="556" width="38" height="38"/>
+                        <rect key="frame" x="20" y="556" width="38" height="38"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="38" id="FbN-Sh-gVR"/>
                             <constraint firstAttribute="width" constant="38" id="uzf-ps-jlm"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pry-cO-7ht">
-                        <rect key="frame" x="82" y="563" width="352" height="24"/>
+                        <rect key="frame" x="66" y="563" width="384" height="24"/>
                         <fontDescription key="fontDescription" name="NotoSansOriya" family="Noto Sans Oriya" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="ZCH-Kn-7pN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="0oL-9z-tKq"/>
+                    <constraint firstItem="ZCH-Kn-7pN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="0oL-9z-tKq"/>
                     <constraint firstAttribute="trailingMargin" secondItem="ZCH-Kn-7pN" secondAttribute="trailing" id="1Q3-mx-p0g"/>
                     <constraint firstItem="oWK-Ml-gkI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="1o3-Ma-kLH"/>
                     <constraint firstItem="Vus-YE-pbD" firstAttribute="top" secondItem="73S-Nn-kum" secondAttribute="bottom" constant="18" id="AcU-Al-j4K"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="6WT-Pt-ZE3" secondAttribute="trailing" constant="16" id="AnJ-m2-AFW"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="6WT-Pt-ZE3" secondAttribute="trailing" id="AnJ-m2-AFW"/>
                     <constraint firstItem="ZCH-Kn-7pN" firstAttribute="top" secondItem="0WO-jW-VUm" secondAttribute="bottom" constant="8" id="CpY-UL-R9J"/>
-                    <constraint firstItem="6WT-Pt-ZE3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="EdZ-zD-gm5"/>
+                    <constraint firstItem="6WT-Pt-ZE3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="EdZ-zD-gm5"/>
                     <constraint firstItem="73S-Nn-kum" firstAttribute="top" secondItem="ZCH-Kn-7pN" secondAttribute="bottom" constant="12" id="F4T-he-hhH"/>
                     <constraint firstItem="pry-cO-7ht" firstAttribute="centerY" secondItem="Vus-YE-pbD" secondAttribute="centerY" id="HMx-8a-ANh"/>
                     <constraint firstItem="0WO-jW-VUm" firstAttribute="top" secondItem="6WT-Pt-ZE3" secondAttribute="bottom" constant="8" id="HuQ-bF-UcT"/>
-                    <constraint firstItem="Vus-YE-pbD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="KjJ-Ap-GC8"/>
+                    <constraint firstItem="Vus-YE-pbD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="KjJ-Ap-GC8"/>
                     <constraint firstItem="cg8-Hn-wRo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="RCh-po-F7U"/>
                     <constraint firstItem="pry-cO-7ht" firstAttribute="leading" secondItem="Vus-YE-pbD" secondAttribute="trailing" constant="8" id="XD3-M3-VsW"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="0WO-jW-VUm" secondAttribute="trailing" constant="16" id="eLJ-rd-zci"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="73S-Nn-kum" secondAttribute="trailing" constant="16" id="gAZ-0h-NvC"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="0WO-jW-VUm" secondAttribute="trailing" id="eLJ-rd-zci"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="73S-Nn-kum" secondAttribute="trailing" id="gAZ-0h-NvC"/>
                     <constraint firstAttribute="trailing" secondItem="oWK-Ml-gkI" secondAttribute="trailing" id="hZl-AE-k5i"/>
                     <constraint firstItem="oWK-Ml-gkI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jKA-hD-tJ9"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="pry-cO-7ht" secondAttribute="trailing" constant="16" id="kWR-im-fZ7"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="pry-cO-7ht" secondAttribute="trailing" id="kWR-im-fZ7"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Vus-YE-pbD" secondAttribute="bottom" constant="8" id="lul-Cj-pgL"/>
-                    <constraint firstItem="73S-Nn-kum" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="nqh-BL-BpF"/>
+                    <constraint firstItem="73S-Nn-kum" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="nqh-BL-BpF"/>
                     <constraint firstAttribute="trailing" secondItem="cg8-Hn-wRo" secondAttribute="trailing" id="sfJ-zQ-TDd"/>
                     <constraint firstItem="6WT-Pt-ZE3" firstAttribute="top" secondItem="cg8-Hn-wRo" secondAttribute="bottom" constant="16" id="smr-hX-jln"/>
                     <constraint firstItem="cg8-Hn-wRo" firstAttribute="top" secondItem="oWK-Ml-gkI" secondAttribute="bottom" id="u6A-l1-V3f"/>
-                    <constraint firstItem="0WO-jW-VUm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="wJs-UW-dEF"/>
+                    <constraint firstItem="0WO-jW-VUm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="wJs-UW-dEF"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
