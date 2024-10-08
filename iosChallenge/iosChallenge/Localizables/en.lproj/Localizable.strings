@@ -1,0 +1,40 @@
+// MARK: Price
+"precio" = "Price";
+"separador_millar" = ",";
+"separador_decimal" = ".";
+
+// MARK: Operación
+"venta" = "For Sale";
+"alquiler" = "For Rent";
+
+// MARK: Viviendas
+"piso" = "Flat";
+"casa" = "House";
+"numero_planta" = "floor";
+"ascensor" = "With lift";
+"no_ascensor" = "Without lift";
+"favorito_lista" = "Added to favorites on %@ at %@";
+"no_favorito" = "Add it to favorites!";
+"parking_incluido" = "Parking Included";
+"parking_no_incluido" = "Parking not Included";
+"parking_incluido_precio" = "Parking space included in the price";
+"parking_no_incluido_precio" = "Parking space not included in the price";
+"comentario_anunciante" = "Advertiser's comment";
+"comentario_completo" = "View full comment";
+"caracteristicas_basicas" = "Basic features";
+"contruidos" = "constructed";
+"dormitorios" = "bedrooms";
+"habitaciones" = "bed";
+"baños" = "bathrooms";
+"edificio" = "Building";
+"cert_energetico" = "Energy performance certificate";
+"consumo" = "Consumption:";
+"emisiones" = "Emissions:";
+"exterior" = "exterior";
+"interior" = "interior";
+
+// MARK: Navigation
+"volver_anuncio" = "Back to ad";
+
+//MARK: Others
+"en" = "in";

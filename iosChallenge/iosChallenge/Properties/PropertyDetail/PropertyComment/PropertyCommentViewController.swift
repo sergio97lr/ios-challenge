@@ -23,7 +23,7 @@ class PropertyCommentViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupCommentView()
-        self.setCustomBackButton(title: "Back to ad")
+        self.setCustomBackButton(title: Constants.LocalizableKeys.Navigation.backToAd)
     }
 
     private func setupCommentView() {

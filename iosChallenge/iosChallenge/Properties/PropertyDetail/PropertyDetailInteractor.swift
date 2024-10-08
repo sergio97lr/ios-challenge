@@ -39,31 +39,31 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
         var floor = characteristics.floor
         floor = Utils.getFloor(floor: floor)
         
-        var operation = "For Sale"
+        var operation = Constants.LocalizableKeys.Operation.sale
         if price.currencySuffix.contains("/") {
-            operation = "For Rent"
+            operation = Constants.LocalizableKeys.Operation.rent
         }
         
         arrayCells.append(.propertyDetail(originalPropertyCode: originalPropertyCode, images: images, address: address, district: district, municipality: municipality, price: price, rooms: roomNumber, size: size, exterior: exterior, propertyType: extendedPropertyType, operation: operation, floor: floor))
         
-        arrayCells.append(.title(text: "Advertiser's comment"))
+        arrayCells.append(.title(text: Constants.LocalizableKeys.Home.advertiserComment))
         let propertyComment = property.propertyComment
         arrayCells.append(.propertyComment(propertyComment: propertyComment))
         
-        arrayCells.append(.title(text: "Basic features"))
+        arrayCells.append(.title(text: Constants.LocalizableKeys.Home.basicFeature))
         var basicFeatures: [String] = []
         let bathNumber = characteristics.bathNumber
-        basicFeatures.append("\(Int(size))m\u{00B2} constructed")
-        basicFeatures.append("\(roomNumber) bedrooms")
-        basicFeatures.append("\(bathNumber) bathrooms")
+        basicFeatures.append("\(Int(size))m\u{00B2} \(Constants.LocalizableKeys.Home.constructed)")
+        basicFeatures.append("\(roomNumber) \(Constants.LocalizableKeys.Home.bedrooms)")
+        basicFeatures.append("\(bathNumber) \(Constants.LocalizableKeys.Home.bathrooms)")
         
         let parking = extraParams.parking
         if parking {
             let parkingIncluded = extraParams.parkingIncluded
             if parkingIncluded {
-                basicFeatures.append("Parking space included in the price")
+                basicFeatures.append(Constants.LocalizableKeys.Home.parkingIncludedPrice)
             } else {
-                basicFeatures.append("Parking space not included in the price")
+                basicFeatures.append(Constants.LocalizableKeys.Home.parkingNotIncludedPrice)
             }
         }
         
@@ -71,40 +71,41 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
             arrayCells.append(.additionalPropertyInfo(text: basicFeature))
         }
         
-        arrayCells.append(.title(text: "Building"))
+        arrayCells.append(.title(text: Constants.LocalizableKeys.Home.building))
         var building: [String] = []
         if exterior {
-            building.append("\(floor) exteriro")
+            building.append("\(floor) \(Constants.LocalizableKeys.Home.exterior)")
         } else {
-            building.append("\(floor) interior")
+            building.append("\(floor) \(Constants.LocalizableKeys.Home.interior)")
         }
         let lift = characteristics.lift
         if lift {
-            building.append("With Lift")
+            building.append(Constants.LocalizableKeys.Home.lift)
         } else {
-            building.append("No Lift")
+            building.append(Constants.LocalizableKeys.Home.noLift)
         }
         
         for build in building {
             arrayCells.append(.additionalPropertyInfo(text: build))
         }
         
-        arrayCells.append(.title(text: "Energy performance certificate"))
+        arrayCells.append(.title(text: Constants.LocalizableKeys.Home.energeticCertificate))
         let consumption = property.energyCertification.energyConsumption
         let emissions = property.energyCertification.emissions
-        arrayCells.append(.additionalPropertyInfo(text: "Consumption: \(consumption.type)"))
-        arrayCells.append(.additionalPropertyInfo(text: "Emissions: \(emissions.type)"))
+        arrayCells.append(.additionalPropertyInfo(text: "\(Constants.LocalizableKeys.Home.consumption) \(consumption.type)"))
+        arrayCells.append(.additionalPropertyInfo(text: "\(Constants.LocalizableKeys.Home.emissions) \(emissions.type)"))
         
-        arrayCells.append(.title(text: "Price"))
-        arrayCells.append(.additionalPropertyInfo(text: "\(price.amount)\(price.currencySuffix)"))
+        arrayCells.append(.title(text: Constants.LocalizableKeys.Price.price))
+        let priceAmount = Utils.formatPrice(price.amount)
+        arrayCells.append(.additionalPropertyInfo(text: "\(priceAmount ?? "0")\(price.currencySuffix)"))
         
-        let priceSize = price.amount/size
-        arrayCells.append(.additionalPropertyInfo(text: "\(priceSize) m\u{00B2}"))
+        let priceSize = Utils.formatPricePerSquareMeter(Double(price.amount/size))
+        arrayCells.append(.additionalPropertyInfo(text: "\(priceSize) \(price.currencySuffix)/m\u{00B2}"))
         
         if extendedPropertyType.contains("flat") {
-            self.backButtonText = "Flat in \(address)"
+            self.backButtonText = "\(Constants.LocalizableKeys.Home.flat) \(Constants.LocalizableKeys.Others.en) \(address)"
         } else {
-            self.backButtonText = "House in \(address)"
+            self.backButtonText = "\(Constants.LocalizableKeys.Home.house) \(Constants.LocalizableKeys.Others.en) \(address)"
         }
 
         
@@ -120,7 +121,6 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
             return try JSONDecoder().decode(PropertyEntity.self, from: data)
         } catch {
             guard let localData = Utils.loadLocalJSON(filename: "detail") else {
-                print("No se pudo cargar el archivo JSON")
                 return nil
             }
 
@@ -128,7 +128,6 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
                 let property = try JSONDecoder().decode(PropertyEntity.self, from: localData)
                 return property
             } catch {
-                print("Error al decodificar el JSON: \(error)")
                 return nil
             }
         }

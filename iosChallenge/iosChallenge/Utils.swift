@@ -19,37 +19,48 @@ class Utils {
     
     static func formatDate(date: Date) -> (formattedTime: String, formattedDate: String) {
         let dateFormatter = DateFormatter()
-
+        
         dateFormatter.dateFormat = "HH:mm:ss"
         let formattedTime = dateFormatter.string(from: date)
-
-        dateFormatter.dateFormat = "dd:MM:yyyy"
+        
+        dateFormatter.dateFormat = "dd/MM/yyyy"
         let formattedDate = dateFormatter.string(from: date)
         
         return (formattedTime, formattedDate)
     }
     
     static func formatPrice(_ precio: Double) -> String? {
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            numberFormatter.groupingSeparator = ","
-            return numberFormatter.string(from: NSNumber(value: precio))
-        }
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.groupingSeparator = Constants.LocalizableKeys.Price.millarSeparator
+        return numberFormatter.string(from: NSNumber(value: precio))
+    }
     
     static func getFloor(floor: String) -> String {
-            switch floor {
-            case "0":
-                return "ground floor"
-            case "1":
-                return "1st floor"
-            case "2":
-                return "2nd floor"
-            case "3":
-                return "3rd floor"
-            default:
-                return "\(floor)th floor"
-            }
+        switch floor {
+        case "0":
+            return "ground floor"
+        case "1":
+            return "1st floor"
+        case "2":
+            return "2nd floor"
+        case "3":
+            return "3rd floor"
+        default:
+            return "\(floor)th floor"
         }
+    }
+    
+    static func formatPricePerSquareMeter(_ value: Double) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.groupingSeparator = Constants.LocalizableKeys.Price.millarSeparator
+        numberFormatter.decimalSeparator = Constants.LocalizableKeys.Price.decimalSeparator
+        
+        return numberFormatter.string(from: NSNumber(value: value)) ?? ""
+    }
+    
 }
 
 struct ExtraParams {
@@ -77,5 +88,11 @@ extension UITextView {
         }
         
         return numberOfLines
+    }
+}
+
+extension String {
+    public var localized: String {
+        return NSLocalizedString(self, comment: "")
     }
 }
