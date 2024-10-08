@@ -1,0 +1,40 @@
+// MARK: Price
+"precio" = "Precio";
+"separador_millar" = ".";
+"separador_decimal" = ",";
+
+// MARK: Operación
+"venta" = "Se vende";
+"alquiler" = "Se alquila";
+
+// MARK: Viviendas
+"piso" = "Piso";
+"casa" = "Casa";
+"numero_planta" = "º planta";
+"ascensor" = "Con ascensor";
+"no_ascensor" = "Sin ascensor";
+"favorito_lista" = "Añadido a favoritos el %@ a las %@";
+"no_favorito" = "¡Añádelo a favoritos!";
+"parking_incluido" = "Garaje incluido";
+"parking_no_incluido" = "Garaje no incluido";
+"parking_incluido_precio" = "Garaje incluido en el precio";
+"parking_no_incluido_precio" = "Garaje no incluido en el precio";
+"comentario_anunciante" = "Comentario del anunciante";
+"comentario_completo" = "Ir al comentario completo";
+"caracteristicas_basicas" = "Características básicas";
+"contruidos" = "construidos";
+"dormitorios" = "habitaciones";
+"habitaciones" = "hab";
+"baños" = "baños";
+"edificio" = "Edificio";
+"cert_energetico" = "Certificado energético";
+"consumo" = "Consumo:";
+"emisiones" = "Emisiones:";
+"exterior" = "exterior";
+"interior" = "interior";
+
+// MARK: Navigation
+"volver_anuncio" = "Volver al anuncio";
+
+//MARK: Others
+"en" = "en";

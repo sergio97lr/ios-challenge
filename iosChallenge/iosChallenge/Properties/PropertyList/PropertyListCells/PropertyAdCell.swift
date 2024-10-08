@@ -67,9 +67,12 @@ class PropertyAdCell: UITableViewCell {
             self.favTextLabel.isHidden = false
             self.infoStackView.spacing = 12
             let dates = Utils.formatDate(date: adFav.1)
-            self.favTextLabel.text = "Added to favorites on \(dates.formattedDate) at \(dates.formattedTime)"
+            let formattedString = String(format: Constants.LocalizableKeys.Home.favList, dates.formattedDate, dates.formattedTime)
+            self.favTextLabel.text = formattedString
         }
         
+        self.sizeToFit()
+        self.layoutIfNeeded()
     }
     
     func configurePropertyImages() {
@@ -97,14 +100,18 @@ class PropertyAdCell: UITableViewCell {
     
     func configureStackView() {
         guard let property = self.property else { return }
-        
-        self.infoStackView.spacing = 20
+        let screenHeight = UIScreen.main.bounds.height
+        if screenHeight <= 667 {
+                self.infoStackView.spacing = 8
+            } else {
+                self.infoStackView.spacing = 20
+            }
         
         // MARK: Operation
         let operation = property.operation
-        var operationText = "For Rent"
+        var operationText = Constants.LocalizableKeys.Operation.rent
         if operation.contains("sale") {
-            operationText = "For Sale"
+            operationText = Constants.LocalizableKeys.Operation.sale
         }
         self.operationLabel.text = operationText
         
@@ -115,9 +122,9 @@ class PropertyAdCell: UITableViewCell {
         
         // MARK: Address
         let propertyType = property.propertyType
-        var propertyTypeText = "House"
+        var propertyTypeText = Constants.LocalizableKeys.Home.house
         if propertyType.contains("flat") {
-            propertyTypeText = "Flat"
+            propertyTypeText = Constants.LocalizableKeys.Home.flat
         }
         let address = property.address
         self.propertyAddressLabel.text = "\(propertyTypeText) in \(address)"
@@ -136,9 +143,9 @@ class PropertyAdCell: UITableViewCell {
             self.parkingLabel.isHidden = false
             let included = property.parkingSpace?.parkingPriceIncluded ?? false
             if included {
-                self.parkingLabel.text = "Parking Included"
+                self.parkingLabel.text = Constants.LocalizableKeys.Home.parkingIncluded
             } else {
-                self.parkingLabel.text = "Parking Optional"
+                self.parkingLabel.text = Constants.LocalizableKeys.Home.parkingNotIncluded
             }
         } else {
             self.parkingLabel.isHidden = true
@@ -150,12 +157,12 @@ class PropertyAdCell: UITableViewCell {
         var floor = property.floor
         let exterior = property.exterior
         floor = Utils.getFloor(floor: floor)
-        var exteriorOrInterior = "exterior"
+        var exteriorOrInterior = Constants.LocalizableKeys.Home.exterior
         if !exterior {
-            exteriorOrInterior = "interior"
+            exteriorOrInterior = Constants.LocalizableKeys.Home.interior
         }
         
-        self.additionalInfoLabel.text = "\(rooms) bed - \(size) m\u{00B2} - \(floor) - \(exteriorOrInterior)"
+        self.additionalInfoLabel.text = "\(rooms) \(Constants.LocalizableKeys.Home.rooms) - \(size) m\u{00B2} - \(floor) - \(exteriorOrInterior)"
         
     }
     
@@ -183,7 +190,7 @@ class PropertyAdCell: UITableViewCell {
                               duration: 1.5,
                               options: .transitionCrossDissolve,
                               animations: {
-                self.favIcon.image = UIImage(named: "noFavIconListreload")
+                self.favIcon.image = UIImage(named: "noFavIconList")
             })
             
         }
@@ -202,9 +209,15 @@ class PropertyAdCell: UITableViewCell {
                 self.favTextLabel.isHidden = false
                 self.favTextLabel.alpha = 1.0
             })
-            self.infoStackView.spacing = 12
+            let screenHeight = UIScreen.main.bounds.height
+            if screenHeight <= 667 {
+                    self.infoStackView.spacing = 4
+            } else {
+                self.infoStackView.spacing = 12
+            }
             let dates = Utils.formatDate(date: date)
-            self.favTextLabel.text = "Added to favorites on \(dates.formattedDate) at \(dates.formattedTime)"
+            let formattedString = String(format: Constants.LocalizableKeys.Home.favList, dates.formattedDate, dates.formattedTime)
+            self.favTextLabel.text = formattedString
         } else {
             UIView.animate(withDuration: 1.5, animations: {
                 self.favTextLabel.isHidden = true

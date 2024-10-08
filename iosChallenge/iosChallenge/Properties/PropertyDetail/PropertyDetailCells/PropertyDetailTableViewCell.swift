@@ -45,18 +45,23 @@ class PropertyDetailTableViewCell: UITableViewCell {
     func configureCell(originalPropertyCode: String ,images: [ImageDetail], address: String, district: String, municipality: String, price: PriceInfoDetail, rooms: Int, size: Double, exterior: Bool, propertyType: String, operation: String, floor: String) {
         
         self.originalPropertyCode = originalPropertyCode
-        
         self.configurePropertyImages(images: images)
-        self.operationLabel.text = operation
+        if operation.contains("sale") {
+            self.operationLabel.text = Constants.LocalizableKeys.Operation.sale
+        } else {
+            self.operationLabel.text = Constants.LocalizableKeys.Operation.rent
+        }
+        
         let propertyType = propertyType
-        var propertyTypeText = "House"
+        var propertyTypeText = Constants.LocalizableKeys.Home.house
         if propertyType.contains("flat") {
-            propertyTypeText = "Flat"
+            propertyTypeText = Constants.LocalizableKeys.Home.flat
         }
         self.addresLabel.text = "\(propertyTypeText) in \(address)"
         self.districLabel.text = "\(district), \(municipality)"
         
-        self.priceLabel.text = "\(price.amount)\(price.currencySuffix)"
+        let priceFormatted = Utils.formatPrice(price.amount) ?? "0"
+        self.priceLabel.text = "\(priceFormatted)\(price.currencySuffix)"
         
         let size = Int(size)
         let exterior = exterior
@@ -65,7 +70,7 @@ class PropertyDetailTableViewCell: UITableViewCell {
             exteriorOrInterior = "interior"
         }
         
-        self.extraInfoLabel.text = "\(rooms) bedrooms - \(size) m\u{00B2} - \(floor) - \(exteriorOrInterior)"
+        self.extraInfoLabel.text = "\(rooms) \(Constants.LocalizableKeys.Home.bedrooms) - \(size) m\u{00B2} - \(floor) - \(exteriorOrInterior)"
         
         self.favLabel.numberOfLines = 0
         self.addFavTapAction()
@@ -74,11 +79,17 @@ class PropertyDetailTableViewCell: UITableViewCell {
             self.favAd = true
             self.favIcon.image = UIImage(named: "favIcon")
             let dates = Utils.formatDate(date: adFav.1)
-            self.favLabel.text = "Added to favorites on \(dates.formattedDate) at \(dates.formattedTime)"
+            let formattedString = String(format: Constants.LocalizableKeys.Home.favList, dates.formattedDate, dates.formattedTime)
+            self.favLabel.text = formattedString
         } else {
-            self.favLabel.text = "Add it to favorites!"
+            self.favLabel.text = Constants.LocalizableKeys.Home.noFav
         }
+        self.favLabel.numberOfLines = 0
+        self.favLabel.lineBreakMode = .byWordWrapping
         self.favLabel.sizeToFit()
+        self.favLabel.layoutIfNeeded()
+        self.sizeToFit()
+        self.layoutIfNeeded()
         
     }
     
@@ -144,7 +155,8 @@ class PropertyDetailTableViewCell: UITableViewCell {
                 self.favLabel.alpha = 0.0
             }) { _ in
                 let dates = Utils.formatDate(date: date)
-                self.favLabel.text = "Added to favorites on \(dates.formattedDate) at \(dates.formattedTime)"
+                let formattedString = String(format: Constants.LocalizableKeys.Home.favList, dates.formattedDate, dates.formattedTime)
+                self.favLabel.text = formattedString
                 UIView.animate(withDuration: 0.75) {
                     self.favLabel.alpha = 1.0
                 }
@@ -153,7 +165,7 @@ class PropertyDetailTableViewCell: UITableViewCell {
             UIView.animate(withDuration: 0.75, animations: {
                 self.favLabel.alpha = 0.0
             }) { _ in
-                self.favLabel.text = "Add it to favorites!"
+                self.favLabel.text = Constants.LocalizableKeys.Home.noFav
                 UIView.animate(withDuration: 0.75) {
                     self.favLabel.alpha = 1.0
                 }

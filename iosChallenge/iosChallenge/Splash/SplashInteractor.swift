@@ -25,7 +25,6 @@ extension SplashInteractor: SplashInputInteractorProtocol {
             return try JSONDecoder().decode(PropertiesEntity.self, from: data)
         } catch {
             guard let localData = Utils.loadLocalJSON(filename: "list") else {
-                print("No se pudo cargar el archivo JSON")
                 return PropertiesEntity()
             }
 
@@ -33,7 +32,6 @@ extension SplashInteractor: SplashInputInteractorProtocol {
                 let properties = try JSONDecoder().decode(PropertiesEntity.self, from: localData)
                 return properties
             } catch {
-                print("Error al decodificar el JSON: \(error)")
                 return PropertiesEntity()
             }
         }

@@ -23,7 +23,6 @@ class CommentTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         self.commentTextView.text = ""
-        self.viewFullTextLabel.text = "View Full comment"
         self.commentTextView.textContainer.maximumNumberOfLines = 4
         self.propertyComment = ""
     }
@@ -38,7 +37,7 @@ class CommentTableViewCell: UITableViewCell {
         self.commentTextView.textContainer.lineBreakMode = .byTruncatingTail
         self.commentTextView.sizeToFit()
         
-        self.viewFullTextLabel.text = "View full comment"
+        self.viewFullTextLabel.text = Constants.LocalizableKeys.Home.fullComment
         self.viewFullTextLabel.isUserInteractionEnabled = true
         self.viewFullTextLabel.textColor = IdealistaColors.pinkIdealista
         
