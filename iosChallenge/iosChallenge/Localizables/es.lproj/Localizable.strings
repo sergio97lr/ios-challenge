@@ -32,6 +32,11 @@
 "emisiones" = "Emisiones:";
 "exterior" = "exterior";
 "interior" = "interior";
+"planta_baja" = "bajo";
+"primera_planta" = "1º planta";
+"segunda_planta" = "2º planta";
+"tercera_planta" = "3º planta";
+"plantas_altas" = "º planta";
 
 // MARK: Navigation
 "volver_anuncio" = "Volver al anuncio";

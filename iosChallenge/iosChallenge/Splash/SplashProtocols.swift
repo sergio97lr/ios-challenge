@@ -22,7 +22,7 @@ protocol SplashRouterProtocol {
 
 // MARK: - Presenter to Interactor {
 protocol SplashInputInteractorProtocol {
-    func getPropertyList() async -> PropertiesEntity
+    func getPropertyList() async -> PropertiesEntity?
 }
 
 // MARK: - Interactor to Presenter {

@@ -22,6 +22,16 @@ class PropertyListPresenter {
 
 // MARK: PropertyListPresenterProtocol
 extension PropertyListPresenter: PropertyListPresenterProtocol {
+    func getNewPropertyList() {
+        Task {
+            if let property = await self.interactor?.getPropertyList() {
+                self.view?.reladData(property: property)
+            } else {
+                self.view?.reladData(property: nil)
+            }
+        }
+    }
+    
     func navigateToDetail(extraParams: ExtraParams) {
         self.router?.navigateToDetail(extraParams: extraParams)
     }

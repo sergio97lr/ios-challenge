@@ -13,12 +13,15 @@ class PropertyListViewController: BaseViewController {
     @IBOutlet weak var propertyListTableView: UITableView!
     @IBOutlet var propertyListTableViewTopConstraint: NSLayoutConstraint!
     
+    let refreshControl = UIRefreshControl()
     var presenter: PropertyListPresenterProtocol?
     var propertyList: PropertiesEntity?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        propertyListTableView.refreshControl = refreshControl
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,11 +39,28 @@ class PropertyListViewController: BaseViewController {
         self.propertyListTableViewTopConstraint.constant = CGFloat(70)
     }
     
+    @objc func refreshData() {
+        self.presenter?.getNewPropertyList()
+    }
     
 }
 
 // MARK: PropertyListViewProtocol
 extension PropertyListViewController: PropertyListViewProtocol {
+    func reladData(property: PropertiesEntity? = nil) {
+        var reload = false
+        if let property = property {
+            self.propertyList = property
+            reload = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+            if reload {
+                self.propertyListTableView.reloadData()
+            }
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
     
 }
 

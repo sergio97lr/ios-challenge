@@ -15,5 +15,9 @@ class PropertyListInteractor {
 
 // MARK: PropertyListInputInteractorProtocol
 extension PropertyListInteractor: PropertyListInputInteractorProtocol {
+    func getPropertyList() async -> PropertiesEntity? {
+        return await Utils.getPropertyData(type: "list") as? PropertiesEntity
+    }
+    
     
 }

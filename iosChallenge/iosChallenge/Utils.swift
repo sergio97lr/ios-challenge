@@ -17,6 +17,46 @@ class Utils {
         return nil
     }
     
+    static func getPropertyData(type: String) async -> Any? {
+            let urlSession = URLSession.shared
+            let urlString: String
+            let filename = type
+
+            switch type {
+            case "list":
+                urlString = Constants.baseUrl + Constants.listEndpoint
+            case "detail":
+                urlString = Constants.baseUrl + Constants.detailEndpoint
+            default:
+                return nil
+            }
+        
+
+            let url = URL(string: urlString)!
+            do {
+                let (data, _) = try await urlSession.data(from: url)
+                if type == "list" {
+                    return try JSONDecoder().decode(PropertiesEntity.self, from: data)
+                } else {
+                    return try JSONDecoder().decode(PropertyEntity.self, from: data)
+                }
+            } catch {
+                guard let localData = loadLocalJSON(filename: filename) else {
+                    return nil
+                }
+
+                do {
+                    if type == "list" {
+                        return try JSONDecoder().decode(PropertiesEntity.self, from: localData)
+                    } else {
+                        return try JSONDecoder().decode(PropertyEntity.self, from: localData)
+                    }
+                } catch {
+                    return nil
+                }
+            }
+        }
+    
     static func formatDate(date: Date) -> (formattedTime: String, formattedDate: String) {
         let dateFormatter = DateFormatter()
         
@@ -32,6 +72,7 @@ class Utils {
     static func formatPrice(_ precio: Double) -> String? {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
+        numberFormatter.locale = Locale(identifier: "en")
         numberFormatter.groupingSeparator = Constants.LocalizableKeys.Price.millarSeparator
         return numberFormatter.string(from: NSNumber(value: precio))
     }
@@ -39,15 +80,15 @@ class Utils {
     static func getFloor(floor: String) -> String {
         switch floor {
         case "0":
-            return "ground floor"
+            return Constants.LocalizableKeys.Home.groundFloor
         case "1":
-            return "1st floor"
+            return Constants.LocalizableKeys.Home.firstFloor
         case "2":
-            return "2nd floor"
+            return Constants.LocalizableKeys.Home.secondFloor
         case "3":
-            return "3rd floor"
+            return Constants.LocalizableKeys.Home.thirdFloor
         default:
-            return "\(floor)th floor"
+            return "\(floor)\(Constants.LocalizableKeys.Home.defaultFloor)"
         }
     }
     
@@ -55,6 +96,7 @@ class Utils {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.maximumFractionDigits = 2
+        numberFormatter.locale = Locale(identifier: "en")
         numberFormatter.groupingSeparator = Constants.LocalizableKeys.Price.millarSeparator
         numberFormatter.decimalSeparator = Constants.LocalizableKeys.Price.decimalSeparator
         
