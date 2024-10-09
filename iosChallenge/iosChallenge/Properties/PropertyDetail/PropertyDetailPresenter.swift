@@ -8,7 +8,7 @@
 import UIKit
 
 enum DetailCellType {
-    case propertyDetail(originalPropertyCode: String ,images: [ImageDetail], address: String, district: String, municipality: String, price: PriceInfoDetail, rooms: Int, size: Double, exterior: Bool, propertyType: String, operation: String, floor: String)
+    case propertyDetail(originalPropertyCode: String ,images: [ImageDetail], address: String, district: String, municipality: String, price: PriceInfoDetail, rooms: Int, size: Double, exterior: Bool, propertyType: String, operation: String, floor: String, latitude: Double, longitude: Double)
     case title(text: String)
     case propertyComment(propertyComment: String)
     case additionalPropertyInfo(text:String)
@@ -32,6 +32,10 @@ class PropertyDetailPresenter {
 
 // MARK: PropertyDetailPresenterProtocol
 extension PropertyDetailPresenter: PropertyDetailPresenterProtocol {
+    func showMap(latitude: Double, longitude: Double) {
+        self.router?.showMap(latitude: latitude, longitude: longitude)
+    }
+    
  
     func showFullComment(comment: String) {
         self.router?.showFullComment(comment: comment)

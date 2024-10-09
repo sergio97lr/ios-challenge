@@ -22,6 +22,13 @@ class PropertyDetailRouter {
 
 // MARK: PropertyDetailRouterProtocol
 extension PropertyDetailRouter: PropertyDetailRouterProtocol {
+    func showMap(latitude: Double, longitude: Double) {
+        let mapVC = MapViewController()
+        mapVC.latitude = latitude
+        mapVC.longitude = longitude
+        self.view.present(mapVC, animated: true, completion: nil)
+    }
+    
     func showFullComment(comment: String) {
         let commentViewController = PropertyCommentViewController(comment: comment)
         self.view.navigationController?.pushViewController(commentViewController, animated: true)

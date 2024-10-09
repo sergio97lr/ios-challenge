@@ -19,13 +19,21 @@ class InfoDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var favLabel: UILabel!
     @IBOutlet weak var placeholderView: UIImageView!
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mapImageView: UIImageView!
+    @IBOutlet weak var mapWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mapHeightConstraint: NSLayoutConstraint!
     
+    weak var delegate: InfoCellCellDelegate?
     var imageList: [(image: UIImage, tag: String)] = []
     var favAd = false
     var favoriteAd: (String, Date)? = nil
     var originalPropertyCode = ""
-    let phoneHeight = 320.0
-    let padHeight = 600.0
+    let phoneCollectionHeight = 320.0
+    let padCollectionHeight = 600.0
+    let phoneMapSize = 38.0
+    let padMapSize = 64.0
+    var latitude: Double?
+    var longitude: Double?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,12 +55,17 @@ class InfoDetailTableViewCell: UITableViewCell {
         self.placeholderView.isHidden = false
     }
     
-    func configureCell(originalPropertyCode: String ,images: [ImageDetail], address: String, district: String, municipality: String, price: PriceInfoDetail, rooms: Int, size: Double, exterior: Bool, propertyType: String, operation: String, floor: String) {
+    func configureCell(originalPropertyCode: String ,images: [ImageDetail], address: String, district: String, municipality: String, price: PriceInfoDetail, rooms: Int, size: Double, exterior: Bool, propertyType: String, operation: String, floor: String, latitude: Double, longitude: Double) {
         
         if UIDevice.current.userInterfaceIdiom == .pad {
-            self.collectionViewHeightConstraint.constant = self.padHeight
+            self.collectionViewHeightConstraint.constant = self.padCollectionHeight
+            self.mapWidthConstraint.constant = self.padMapSize
+            self.mapHeightConstraint.constant = self.padMapSize
         } else {
-            self.collectionViewHeightConstraint.constant = self.phoneHeight
+            self.collectionViewHeightConstraint.constant = self.phoneCollectionHeight
+            self.mapWidthConstraint.constant = self.phoneMapSize
+            self.mapHeightConstraint.constant = self.phoneMapSize
+
         }
         
         self.originalPropertyCode = originalPropertyCode
@@ -99,10 +112,24 @@ class InfoDetailTableViewCell: UITableViewCell {
         self.favLabel.lineBreakMode = .byWordWrapping
         self.favLabel.sizeToFit()
         self.favLabel.layoutIfNeeded()
+        
+        self.latitude = latitude
+        self.longitude = longitude
+        
+        let tapMapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapMapImage))
+        self.mapImageView.addGestureRecognizer(tapMapGesture)
+        self.mapImageView.isUserInteractionEnabled = true
+        
         self.sizeToFit()
         self.layoutIfNeeded()
         
     }
+    
+    @objc private func didTapMapImage() {
+        guard let latitude = self.latitude, let longitude = self.longitude else { return }
+        self.delegate?.showMap(latitude: latitude, longitude: longitude)
+    }
+    
     
     func configurePropertyImages(images: [ImageDetail]) {
         let group = DispatchGroup()

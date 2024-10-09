@@ -72,9 +72,10 @@ extension PropertyDetailViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellType = cells[indexPath.row]
         switch cellType {
-        case .propertyDetail(let originalPropertyCode, let images, let address, let district, let municipality, let price, let rooms, let size, let exterior, let propertyType, let operation, let floor):
+        case .propertyDetail(let originalPropertyCode, let images, let address, let district, let municipality, let price, let rooms, let size, let exterior, let propertyType, let operation, let floor, let latitude, let longitude):
             let cell = tableView.dequeueReusableCell(withIdentifier: "InfoDetailTableViewCell", for: indexPath) as! InfoDetailTableViewCell
-            cell.configureCell(originalPropertyCode: originalPropertyCode, images: images, address: address, district: district, municipality: municipality, price: price, rooms: rooms, size: size, exterior: exterior, propertyType: propertyType, operation: operation, floor: floor)
+            cell.configureCell(originalPropertyCode: originalPropertyCode, images: images, address: address, district: district, municipality: municipality, price: price, rooms: rooms, size: size, exterior: exterior, propertyType: propertyType, operation: operation, floor: floor, latitude: latitude, longitude: longitude)
+            cell.delegate = self
             return cell
         case .title(let text):
             let cell = tableView.dequeueReusableCell(withIdentifier: "TitleTableViewCell", for: indexPath) as! TitleTableViewCell
@@ -97,5 +98,14 @@ extension PropertyDetailViewController: CommentCellDelegate {
     func showFullComment(comment: String) {
         self.presenter?.showFullComment(comment: comment)
     }
+    
+}
+
+extension PropertyDetailViewController: InfoCellCellDelegate {
+    func showMap(latitude: Double, longitude: Double) {
+        self.presenter?.showMap(latitude: latitude, longitude: longitude)
+    }
+    
+    
     
 }
