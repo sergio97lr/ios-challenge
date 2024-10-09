@@ -94,6 +94,9 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeHolderImage" translatesAutoresizingMaskIntoConstraints="NO" id="5qy-rv-5Tv">
+                                                <rect key="frame" x="0.0" y="0.0" width="316" height="265"/>
+                                            </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noFavIconList" translatesAutoresizingMaskIntoConstraints="NO" id="0HH-g0-a92">
                                                 <rect key="frame" x="271" y="220" width="40" height="40"/>
                                                 <constraints>
@@ -108,7 +111,11 @@
                                             <constraint firstAttribute="trailing" secondItem="0HH-g0-a92" secondAttribute="trailing" constant="5" id="9BV-bv-JaL"/>
                                             <constraint firstItem="oKc-kp-x28" firstAttribute="leading" secondItem="5fn-AV-NAY" secondAttribute="leading" constant="8" id="KYX-5Z-CYP"/>
                                             <constraint firstItem="oKc-kp-x28" firstAttribute="top" secondItem="0HH-g0-a92" secondAttribute="bottom" constant="17" id="Pbc-2O-EXu"/>
+                                            <constraint firstItem="5qy-rv-5Tv" firstAttribute="leading" secondItem="JDT-k9-Bx1" secondAttribute="leading" id="Sok-gK-PZT"/>
+                                            <constraint firstItem="JDT-k9-Bx1" firstAttribute="trailing" secondItem="5qy-rv-5Tv" secondAttribute="trailing" id="cFz-am-K9j"/>
                                             <constraint firstAttribute="bottom" secondItem="oKc-kp-x28" secondAttribute="bottom" constant="16" id="dpO-i7-JCX"/>
+                                            <constraint firstItem="5qy-rv-5Tv" firstAttribute="top" secondItem="JDT-k9-Bx1" secondAttribute="top" id="e3N-fC-mH5"/>
+                                            <constraint firstItem="JDT-k9-Bx1" firstAttribute="bottom" secondItem="5qy-rv-5Tv" secondAttribute="bottom" id="gk4-Zk-ik0"/>
                                             <constraint firstItem="JDT-k9-Bx1" firstAttribute="top" secondItem="5fn-AV-NAY" secondAttribute="top" id="ipT-d9-aBa"/>
                                             <constraint firstItem="oKc-kp-x28" firstAttribute="top" secondItem="JDT-k9-Bx1" secondAttribute="bottom" constant="12" id="l3n-pb-Bae"/>
                                             <constraint firstAttribute="trailing" secondItem="JDT-k9-Bx1" secondAttribute="trailing" id="u9A-ky-Kjp"/>
@@ -203,6 +210,9 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeHolderImage" translatesAutoresizingMaskIntoConstraints="NO" id="p2R-1f-drd">
+                                                <rect key="frame" x="0.0" y="0.0" width="316" height="265"/>
+                                            </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noFavIconList" translatesAutoresizingMaskIntoConstraints="NO" id="YeY-cv-CNE">
                                                 <rect key="frame" x="271" y="220" width="40" height="40"/>
                                                 <constraints>
@@ -218,8 +228,12 @@
                                             <constraint firstAttribute="trailing" secondItem="lAd-X3-0is" secondAttribute="trailing" id="B7E-vP-AYk"/>
                                             <constraint firstAttribute="trailing" secondItem="PAh-tY-xlu" secondAttribute="trailing" constant="8" id="Ca7-64-Md8"/>
                                             <constraint firstItem="PAh-tY-xlu" firstAttribute="top" secondItem="YeY-cv-CNE" secondAttribute="bottom" constant="17" id="CvQ-Cz-XFH"/>
+                                            <constraint firstItem="p2R-1f-drd" firstAttribute="leading" secondItem="lAd-X3-0is" secondAttribute="leading" id="Pa5-3C-C8X"/>
+                                            <constraint firstItem="p2R-1f-drd" firstAttribute="top" secondItem="lAd-X3-0is" secondAttribute="top" id="bPf-j6-RpN"/>
                                             <constraint firstItem="PAh-tY-xlu" firstAttribute="leading" secondItem="Qgd-cc-MN4" secondAttribute="leading" constant="8" id="hEg-4w-yXF"/>
+                                            <constraint firstItem="lAd-X3-0is" firstAttribute="bottom" secondItem="p2R-1f-drd" secondAttribute="bottom" id="lEx-5t-ajr"/>
                                             <constraint firstItem="PAh-tY-xlu" firstAttribute="top" secondItem="lAd-X3-0is" secondAttribute="bottom" constant="12" id="pck-RB-RKi"/>
+                                            <constraint firstItem="lAd-X3-0is" firstAttribute="trailing" secondItem="p2R-1f-drd" secondAttribute="trailing" id="s6F-lc-9mM"/>
                                             <constraint firstAttribute="trailing" secondItem="YeY-cv-CNE" secondAttribute="trailing" constant="5" id="saR-FJ-6NP"/>
                                             <constraint firstItem="lAd-X3-0is" firstAttribute="top" secondItem="Qgd-cc-MN4" secondAttribute="top" id="tQ0-Mb-cKr"/>
                                         </constraints>
@@ -268,6 +282,7 @@
                 <outlet property="leftNeighborhood" destination="shA-Dc-cAL" id="4u2-Ui-yR8"/>
                 <outlet property="leftOperation" destination="OFD-on-EJf" id="yxV-aK-pT8"/>
                 <outlet property="leftParking" destination="gOj-Wf-ktf" id="OzE-4D-FqU"/>
+                <outlet property="leftPlaceholderImage" destination="5qy-rv-5Tv" id="ObN-vr-nBF"/>
                 <outlet property="leftPrice" destination="Bsw-E2-L9m" id="pti-Pp-Wiu"/>
                 <outlet property="leftPropertyType" destination="900-7d-m63" id="2lJ-3t-NgP"/>
                 <outlet property="leftStackView" destination="oKc-kp-x28" id="GS8-SE-cLy"/>
@@ -279,6 +294,7 @@
                 <outlet property="rightNeighborhood" destination="ycf-OZ-MVV" id="RQc-c0-F9t"/>
                 <outlet property="rightOperation" destination="YXn-JW-YRC" id="5DY-Pd-Pgg"/>
                 <outlet property="rightParking" destination="7JR-nI-38Q" id="wfA-hg-HeZ"/>
+                <outlet property="rightPlaceholderImage" destination="p2R-1f-drd" id="vAj-fv-vwG"/>
                 <outlet property="rightPrice" destination="klu-iT-ynl" id="kKU-mo-flu"/>
                 <outlet property="rightPropertyType" destination="RVM-5D-Gcw" id="zyf-mB-iLf"/>
                 <outlet property="rightStackView" destination="PAh-tY-xlu" id="oip-65-i2U"/>
@@ -288,6 +304,7 @@
     </objects>
     <resources>
         <image name="noFavIconList" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="placeHolderImage" width="640" height="360"/>
         <namedColor name="pinkIdealista">
             <color red="0.65490196078431373" green="0.20392156862745098" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

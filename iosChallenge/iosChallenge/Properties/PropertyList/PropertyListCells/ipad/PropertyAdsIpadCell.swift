@@ -20,6 +20,7 @@ class PropertyAdsIpadCell: UITableViewCell {
     @IBOutlet weak var leftExtraInfo: UILabel!
     @IBOutlet weak var leftFavLabel: UILabel!
     @IBOutlet weak var leftFavIcon: UIImageView!
+    @IBOutlet weak var leftPlaceholderImage: UIImageView!
     @IBOutlet weak var rightAdView: UIView!
     @IBOutlet weak var rightCollectionView: UICollectionView!
     @IBOutlet weak var rightStackView: UIStackView!
@@ -31,6 +32,7 @@ class PropertyAdsIpadCell: UITableViewCell {
     @IBOutlet weak var rightExtraInfo: UILabel!
     @IBOutlet weak var rightFavLabel: UILabel!
     @IBOutlet weak var rightFavIcon: UIImageView!
+    @IBOutlet weak var rightPlaceholderImage: UIImageView!
     
     weak var delegate: PropertyAdCellDelegate?
     
@@ -56,6 +58,7 @@ class PropertyAdsIpadCell: UITableViewCell {
         self.leftFavLabel.isHidden = true
         self.leftFavAd = false
         self.leftFavIcon.image = UIImage(named: "noFavIconList")
+        self.leftPlaceholderImage.isHidden = false
         self.rightProperty = nil
         self.rightOperation.text = ""
         self.rightPropertyType.text = ""
@@ -67,6 +70,7 @@ class PropertyAdsIpadCell: UITableViewCell {
         self.rightFavLabel.isHidden = true
         self.rightFavAd = false
         self.rightFavIcon.image = UIImage(named: "noFavIconList")
+        self.rightPlaceholderImage.isHidden = false
     }
     
     override func awakeFromNib() {
@@ -153,11 +157,20 @@ class PropertyAdsIpadCell: UITableViewCell {
         }
         
         group.notify(queue: .main) { [weak self] in
-            self?.leftCollectionView.reloadData()
-            self?.rightCollectionView.reloadData()
+            if isLeft {
+                self?.leftCollectionView.reloadData()
+                if !(self?.leftImageList.isEmpty ?? true) {
+                    self?.leftPlaceholderImage.isHidden = true
+                }
+            }else {
+                self?.rightCollectionView.reloadData()
+                if !(self?.rightImageList.isEmpty ?? true) {
+                    self?.rightPlaceholderImage.isHidden = true
+                }
+            }
         }
     }
-    
+        
     func configureLeftStackView(property: PropertyListEntity) {
         let screenHeight = UIScreen.main.bounds.height
         if screenHeight <= 667 {

@@ -95,6 +95,9 @@
                                     <constraint firstAttribute="height" constant="40" id="tXi-aR-BfO"/>
                                 </constraints>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeHolderImage" translatesAutoresizingMaskIntoConstraints="NO" id="5F8-et-Sz3">
+                                <rect key="frame" x="0.0" y="0.0" width="526" height="265"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -102,8 +105,12 @@
                             <constraint firstAttribute="trailing" secondItem="7Kq-Dd-7JY" secondAttribute="trailing" constant="5" id="3Cg-sx-dQi"/>
                             <constraint firstItem="jCC-Uf-aKd" firstAttribute="leading" secondItem="IeB-6H-ZZ0" secondAttribute="leading" id="5Ch-4F-2Lg"/>
                             <constraint firstAttribute="bottom" secondItem="Tf9-Wf-QZr" secondAttribute="bottom" constant="16" id="5e3-Hq-OHv"/>
+                            <constraint firstItem="5F8-et-Sz3" firstAttribute="leading" secondItem="jCC-Uf-aKd" secondAttribute="leading" id="Nsw-YG-Cre"/>
                             <constraint firstAttribute="trailing" secondItem="jCC-Uf-aKd" secondAttribute="trailing" id="OxE-7u-8g2"/>
+                            <constraint firstItem="jCC-Uf-aKd" firstAttribute="bottom" secondItem="5F8-et-Sz3" secondAttribute="bottom" id="WGK-Ae-qzv"/>
+                            <constraint firstItem="jCC-Uf-aKd" firstAttribute="trailing" secondItem="5F8-et-Sz3" secondAttribute="trailing" id="ZDZ-ih-eVX"/>
                             <constraint firstItem="Tf9-Wf-QZr" firstAttribute="top" secondItem="jCC-Uf-aKd" secondAttribute="bottom" constant="12" id="dpf-4t-G4W"/>
+                            <constraint firstItem="5F8-et-Sz3" firstAttribute="top" secondItem="jCC-Uf-aKd" secondAttribute="top" id="f8f-s4-fEd"/>
                             <constraint firstItem="Tf9-Wf-QZr" firstAttribute="leading" secondItem="IeB-6H-ZZ0" secondAttribute="leading" constant="8" id="fPb-O6-8Kp"/>
                             <constraint firstAttribute="trailing" secondItem="Tf9-Wf-QZr" secondAttribute="trailing" constant="8" id="m1V-LY-SiG"/>
                             <constraint firstItem="jCC-Uf-aKd" firstAttribute="top" secondItem="IeB-6H-ZZ0" secondAttribute="top" id="vtg-1T-hpM"/>
@@ -130,6 +137,7 @@
                 <outlet property="locationLabel" destination="ffF-1D-z0Z" id="zeq-LM-GMn"/>
                 <outlet property="operationLabel" destination="Nod-hJ-S9J" id="9eA-cS-Xog"/>
                 <outlet property="parkingLabel" destination="XKB-6T-QTb" id="lRt-HM-DZ1"/>
+                <outlet property="placeholderImage" destination="5F8-et-Sz3" id="7h2-nf-1m3"/>
                 <outlet property="priceLabel" destination="X8k-zW-RE1" id="lFR-Zq-mo3"/>
                 <outlet property="propertyAddressLabel" destination="cfi-mL-Sh4" id="9Xb-cy-kQ8"/>
             </connections>
@@ -138,6 +146,7 @@
     </objects>
     <resources>
         <image name="noFavIconList" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="placeHolderImage" width="640" height="360"/>
         <namedColor name="pinkIdealista">
             <color red="0.65490196078431373" green="0.20392156862745098" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

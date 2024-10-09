@@ -28,7 +28,7 @@ class PropertyDetailViewController: BaseViewController {
     }
     
     func registerCells() {
-        self.propertyDetailTableView.register(UINib(nibName: "PropertyDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "PropertyDetailTableViewCell")
+        self.propertyDetailTableView.register(UINib(nibName: "InfoDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "InfoDetailTableViewCell")
         self.propertyDetailTableView.register(UINib(nibName: "TitleTableViewCell", bundle: nil), forCellReuseIdentifier: "TitleTableViewCell")
         self.propertyDetailTableView.register(UINib(nibName: "CommentTableViewCell", bundle: nil), forCellReuseIdentifier: "CommentTableViewCell")
         self.propertyDetailTableView.register(UINib(nibName: "AdditionalPropertyInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "AdditionalPropertyInfoTableViewCell")
@@ -73,7 +73,7 @@ extension PropertyDetailViewController: UITableViewDelegate, UITableViewDataSour
         let cellType = cells[indexPath.row]
         switch cellType {
         case .propertyDetail(let originalPropertyCode, let images, let address, let district, let municipality, let price, let rooms, let size, let exterior, let propertyType, let operation, let floor):
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PropertyDetailTableViewCell", for: indexPath) as! PropertyDetailTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "InfoDetailTableViewCell", for: indexPath) as! InfoDetailTableViewCell
             cell.configureCell(originalPropertyCode: originalPropertyCode, images: images, address: address, district: district, municipality: municipality, price: price, rooms: rooms, size: size, exterior: exterior, propertyType: propertyType, operation: operation, floor: floor)
             return cell
         case .title(let text):
