@@ -113,24 +113,7 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
     }
     
     func getProperty() async -> PropertyEntity? {
-        let urlSession = URLSession.shared
-        let urlString = Constants.baseUrl + Constants.listEndpoint
-        let url = URL(string: urlString)!
-        do {
-            let (data, _) = try await urlSession.data(from: url)
-            return try JSONDecoder().decode(PropertyEntity.self, from: data)
-        } catch {
-            guard let localData = Utils.loadLocalJSON(filename: "detail") else {
-                return nil
-            }
-
-            do {
-                let property = try JSONDecoder().decode(PropertyEntity.self, from: localData)
-                return property
-            } catch {
-                return nil
-            }
-        }
+        return await Utils.getPropertyData(type: "detail") as? PropertyEntity
     }
     
     

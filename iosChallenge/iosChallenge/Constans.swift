@@ -47,6 +47,11 @@ struct Constants {
             static let emissions = "emisiones".localized
             static let exterior = "exterior".localized
             static let interior = "interior".localized
+            static let groundFloor = "planta_baja".localized
+            static let firstFloor = "primera_planta".localized
+            static let secondFloor = "segunda_planta".localized
+            static let thirdFloor = "tercera_planta".localized
+            static let defaultFloor = "plantas_altas".localized
         }
         
         struct Navigation {

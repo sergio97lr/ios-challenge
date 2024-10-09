@@ -9,11 +9,12 @@
 // MARK: - View to Presenter
 protocol PropertyListPresenterProtocol {
     func navigateToDetail(extraParams: ExtraParams)
+    func getNewPropertyList()
 }
 
 // MARK: - Presenter to View
 protocol PropertyListViewProtocol {
-    
+    func reladData(property: PropertiesEntity?)
 }
 
 // MARK: - Presenter to Router
@@ -23,7 +24,7 @@ protocol PropertyListRouterProtocol {
 
 // MARK: - Presenter to Interactor {
 protocol PropertyListInputInteractorProtocol {
-    
+    func getPropertyList() async -> PropertiesEntity?
 }
 
 // MARK: - Interactor to Presenter {

@@ -43,6 +43,7 @@ class PropertyAdCell: UITableViewCell {
         self.favAd = false
         self.favIcon.image = UIImage(named: "noFavIconList")
         self.placeholderImage.isHidden = false
+        self.imageList = []
     }
     
     override func awakeFromNib() {
@@ -80,28 +81,39 @@ class PropertyAdCell: UITableViewCell {
     func configurePropertyImages() {
         guard let property = self.property else { return }
         let group = DispatchGroup()
-        
-        for propertyImage in property.multimedia.images {
+        var tempImageDict: [Int: [(image: UIImage, tag: String)]] = [:]
+
+        for (index, propertyImage) in property.multimedia.images.enumerated() {
             guard let url = URL(string: propertyImage.url) else { continue }
             group.enter()
-            DispatchQueue.global().async { [weak self] in
+            DispatchQueue.global().async {
                 if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                    let tag = propertyImage.tag // Asumiendo que propertyImage tiene una propiedad 'tag'
                     DispatchQueue.main.async {
-                        let imageListItem = (image: image, tag: propertyImage.tag)
-                        self?.imageList.append(imageListItem)
+                        if tempImageDict[index] != nil {
+                            tempImageDict[index]?.append((image: image, tag: tag))
+                        } else {
+                            tempImageDict[index] = [(image: image, tag: tag)]
+                        }
+                        group.leave()
                     }
+                } else {
+                    group.leave()
                 }
-                group.leave()
             }
         }
-        
+
         group.notify(queue: .main) { [weak self] in
+            self?.imageList = tempImageDict.sorted { $0.key < $1.key }.flatMap { $0.value }
             self?.collectionView.reloadData()
+            self?.collectionView.setContentOffset(.zero, animated: false)
             if !(self?.imageList.isEmpty ?? true) {
                 self?.placeholderImage.isHidden = true
             }
         }
     }
+
+
     
     func configureStackView() {
         guard let property = self.property else { return }

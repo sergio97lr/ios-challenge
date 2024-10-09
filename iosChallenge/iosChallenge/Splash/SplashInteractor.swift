@@ -16,24 +16,7 @@ class SplashInteractor {
 // MARK: SplashInputInteractorProtocol
 extension SplashInteractor: SplashInputInteractorProtocol {
     
-    func getPropertyList() async -> PropertiesEntity {
-        let urlSession = URLSession.shared
-        let urlString = Constants.baseUrl + Constants.listEndpoint
-        let url = URL(string: urlString)!
-        do {
-            let (data, _) = try await urlSession.data(from: url)
-            return try JSONDecoder().decode(PropertiesEntity.self, from: data)
-        } catch {
-            guard let localData = Utils.loadLocalJSON(filename: "list") else {
-                return PropertiesEntity()
-            }
-
-            do {
-                let properties = try JSONDecoder().decode(PropertiesEntity.self, from: localData)
-                return properties
-            } catch {
-                return PropertiesEntity()
-            }
-        }
+    func getPropertyList() async -> PropertiesEntity? {
+        return await Utils.getPropertyData(type: "list") as? PropertiesEntity
     }
 }

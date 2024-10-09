@@ -32,6 +32,11 @@
 "emisiones" = "Emissions:";
 "exterior" = "exterior";
 "interior" = "interior";
+"planta_baja" = "ground floor";
+"primera_planta" = "1st floor";
+"segunda_planta" = "2nd floor";
+"tercera_planta" = "3rd floor";
+"plantas_altas" = "th floor";
 
 // MARK: Navigation
 "volver_anuncio" = "Back to ad";
