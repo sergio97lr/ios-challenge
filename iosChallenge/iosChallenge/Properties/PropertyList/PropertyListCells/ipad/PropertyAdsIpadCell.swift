@@ -137,39 +137,48 @@ class PropertyAdsIpadCell: UITableViewCell {
     
     func configurePropertyImages(property: PropertyListEntity, isLeft: Bool) {
         let group = DispatchGroup()
-        
-        for propertyImage in property.multimedia.images {
+        var tempImageDict: [Int: [(image: UIImage, tag: String)]] = [:]
+
+        for (index, propertyImage) in property.multimedia.images.enumerated() {
             guard let url = URL(string: propertyImage.url) else { continue }
             group.enter()
-            DispatchQueue.global().async { [weak self] in
+            DispatchQueue.global().async {
                 if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                    let tag = propertyImage.tag
                     DispatchQueue.main.async {
-                        let imageListItem = (image: image, tag: propertyImage.tag)
-                        if isLeft {
-                            self?.leftImageList.append(imageListItem)
+                        if tempImageDict[index] != nil {
+                            tempImageDict[index]?.append((image: image, tag: tag))
                         } else {
-                            self?.rightImageList.append(imageListItem)
+                            tempImageDict[index] = [(image: image, tag: tag)]
                         }
+                        group.leave()
                     }
+                } else {
+                    group.leave()
                 }
-                group.leave()
             }
         }
-        
+
         group.notify(queue: .main) { [weak self] in
+            let sortedImages = tempImageDict.sorted { $0.key < $1.key }.flatMap { $0.value }
             if isLeft {
+                self?.leftImageList.append(contentsOf: sortedImages)
                 self?.leftCollectionView.reloadData()
+                self?.leftCollectionView.setContentOffset(.zero, animated: false)
                 if !(self?.leftImageList.isEmpty ?? true) {
                     self?.leftPlaceholderImage.isHidden = true
                 }
-            }else {
+            } else {
+                self?.rightImageList.append(contentsOf: sortedImages)
                 self?.rightCollectionView.reloadData()
+                self?.rightCollectionView.setContentOffset(.zero, animated: false)
                 if !(self?.rightImageList.isEmpty ?? true) {
                     self?.rightPlaceholderImage.isHidden = true
                 }
             }
         }
     }
+
         
     func configureLeftStackView(property: PropertyListEntity) {
         let screenHeight = UIScreen.main.bounds.height
