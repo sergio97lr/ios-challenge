@@ -44,7 +44,10 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
             operation = Constants.LocalizableKeys.Operation.rent
         }
         
-        arrayCells.append(.propertyDetail(originalPropertyCode: originalPropertyCode, images: images, address: address, district: district, municipality: municipality, price: price, rooms: roomNumber, size: size, exterior: exterior, propertyType: extendedPropertyType, operation: operation, floor: floor))
+        let latitude = property.ubication.latitude
+        let longitude = property.ubication.longitude
+        
+        arrayCells.append(.propertyDetail(originalPropertyCode: originalPropertyCode, images: images, address: address, district: district, municipality: municipality, price: price, rooms: roomNumber, size: size, exterior: exterior, propertyType: extendedPropertyType, operation: operation, floor: floor, latitude: latitude, longitude: longitude))
         
         arrayCells.append(.title(text: Constants.LocalizableKeys.Home.advertiserComment))
         let propertyComment = property.propertyComment

@@ -10,6 +10,7 @@ protocol PropertyDetailPresenterProtocol {
     func viewDidLoad()
     func addPropertyParameters(extraParams: ExtraParams)
     func showFullComment(comment: String)
+    func showMap(latitude: Double, longitude: Double)
 }
 
 // MARK: - Presenter to View
@@ -22,6 +23,7 @@ protocol PropertyDetailViewProtocol {
 // MARK: - Presenter to Router
 protocol PropertyDetailRouterProtocol {
     func showFullComment(comment: String)
+    func showMap(latitude: Double, longitude: Double)
 }
 
 // MARK: - Presenter to Interactor {
@@ -41,4 +43,9 @@ protocol PropertyDetailOutputInteractorProtocol {
 // MARK: - CommentCell to View
 protocol CommentCellDelegate: AnyObject {
     func showFullComment(comment: String)
+}
+
+// MARK: - InfoCell to View
+protocol InfoCellCellDelegate: AnyObject {
+    func showMap(latitude: Double, longitude: Double)
 }
