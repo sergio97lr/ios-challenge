@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PropertyDetailTableViewCell: UITableViewCell {
+class InfoDetailTableViewCell: UITableViewCell {
     
     @IBOutlet weak var operationLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -17,11 +17,15 @@ class PropertyDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var extraInfoLabel: UILabel!
     @IBOutlet weak var favIcon: UIImageView!
     @IBOutlet weak var favLabel: UILabel!
+    @IBOutlet weak var placeholderView: UIImageView!
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
     var imageList: [(image: UIImage, tag: String)] = []
     var favAd = false
     var favoriteAd: (String, Date)? = nil
     var originalPropertyCode = ""
+    let phoneHeight = 320.0
+    let padHeight = 600.0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,9 +44,16 @@ class PropertyDetailTableViewCell: UITableViewCell {
         self.priceLabel.text = ""
         self.extraInfoLabel.text = ""
         self.favLabel.text = ""
+        self.placeholderView.isHidden = false
     }
     
     func configureCell(originalPropertyCode: String ,images: [ImageDetail], address: String, district: String, municipality: String, price: PriceInfoDetail, rooms: Int, size: Double, exterior: Bool, propertyType: String, operation: String, floor: String) {
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            self.collectionViewHeightConstraint.constant = self.padHeight
+        } else {
+            self.collectionViewHeightConstraint.constant = self.phoneHeight
+        }
         
         self.originalPropertyCode = originalPropertyCode
         self.configurePropertyImages(images: images)
@@ -112,6 +123,9 @@ class PropertyDetailTableViewCell: UITableViewCell {
         
         group.notify(queue: .main) { [weak self] in
             self?.collectionView.reloadData()
+            if !(self?.imageList.isEmpty ?? true) {
+                self?.placeholderView.isHidden = true
+            }
         }
     }
     
@@ -190,7 +204,7 @@ class PropertyDetailTableViewCell: UITableViewCell {
 }
 
 // MARK: - UICollectionViewDataSource
-extension PropertyDetailTableViewCell: UICollectionViewDataSource {
+extension InfoDetailTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.imageList.count
     }
@@ -205,7 +219,7 @@ extension PropertyDetailTableViewCell: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension PropertyDetailTableViewCell: UICollectionViewDelegateFlowLayout {
+extension InfoDetailTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.frame.size
     }

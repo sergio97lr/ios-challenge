@@ -20,6 +20,7 @@ class PropertyAdCell: UITableViewCell {
     @IBOutlet weak var additionalInfoLabel: UILabel!
     @IBOutlet weak var favIcon: UIImageView!
     @IBOutlet weak var favTextLabel: UILabel!
+    @IBOutlet weak var placeholderImage: UIImageView!
     
     weak var delegate: PropertyAdCellDelegate?
     
@@ -41,6 +42,7 @@ class PropertyAdCell: UITableViewCell {
         self.favTextLabel.isHidden = true
         self.favAd = false
         self.favIcon.image = UIImage(named: "noFavIconList")
+        self.placeholderImage.isHidden = false
     }
     
     override func awakeFromNib() {
@@ -95,6 +97,9 @@ class PropertyAdCell: UITableViewCell {
         
         group.notify(queue: .main) { [weak self] in
             self?.collectionView.reloadData()
+            if !(self?.imageList.isEmpty ?? true) {
+                self?.placeholderImage.isHidden = true
+            }
         }
     }
     
