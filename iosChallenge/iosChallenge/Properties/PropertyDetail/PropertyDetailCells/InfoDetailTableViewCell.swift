@@ -42,6 +42,11 @@ class InfoDetailTableViewCell: UITableViewCell {
         self.collectionView.register(UINib(nibName: "ImagesAdsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ImagesAdsCollectionViewCell")
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateImageTintColor()
+    }
+    
     override func prepareForReuse() {
         self.favAd = false
         self.originalPropertyCode = ""
@@ -119,6 +124,7 @@ class InfoDetailTableViewCell: UITableViewCell {
         let tapMapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapMapImage))
         self.mapImageView.addGestureRecognizer(tapMapGesture)
         self.mapImageView.isUserInteractionEnabled = true
+        self.updateImageTintColor()
         
         self.sizeToFit()
         self.layoutIfNeeded()
@@ -226,6 +232,14 @@ class InfoDetailTableViewCell: UITableViewCell {
             return (codeFav, dateFav)
         }
         return nil
+    }
+    
+    func updateImageTintColor() {
+        if traitCollection.userInterfaceStyle == .dark {
+            mapImageView.image = UIImage(named: "mapIconDark")
+        } else {
+            mapImageView.image = UIImage(named: "mapIcon")
+        }
     }
     
 }

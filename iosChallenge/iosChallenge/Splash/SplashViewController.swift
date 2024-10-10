@@ -15,13 +15,22 @@ class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            splashIconImageView.image = UIImage(named: "idealistaLong")
-        } else if UIDevice.current.userInterfaceIdiom == .phone {
-            splashIconImageView.image = UIImage(named: "idealistaShort")
+        let splashImage = UIImage(named: "idealistaLong")
+        let tintedImage = splashImage?.withRenderingMode(.alwaysTemplate)
+        splashIconImageView.image = tintedImage
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateImageTintColor()
+    }
+    
+    func updateImageTintColor() {
+        if traitCollection.userInterfaceStyle == .dark {
+            splashIconImageView.tintColor = UIColor.white
+        } else {
+            splashIconImageView.tintColor = UIColor.black
         }
-        
     }
 
     override func viewDidAppear(_ animated: Bool) {
