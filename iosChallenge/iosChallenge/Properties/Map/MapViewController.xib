@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapViewController" customModule="iosChallenge" customModuleProvider="target">
             <connections>
+                <outlet property="closeButton" destination="jFI-vk-pQc" id="Wy0-cM-XM2"/>
                 <outlet property="mapView" destination="16S-m8-wPI" id="Xxa-Ca-e0H"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
