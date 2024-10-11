@@ -88,15 +88,15 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeHolderImage" translatesAutoresizingMaskIntoConstraints="NO" id="5F8-et-Sz3">
+                                <rect key="frame" x="0.0" y="0.0" width="526" height="265"/>
+                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noFavIconList" translatesAutoresizingMaskIntoConstraints="NO" id="7Kq-Dd-7JY">
                                 <rect key="frame" x="481" y="220" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="1lq-IX-9Wd"/>
                                     <constraint firstAttribute="height" constant="40" id="tXi-aR-BfO"/>
                                 </constraints>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeHolderImage" translatesAutoresizingMaskIntoConstraints="NO" id="5F8-et-Sz3">
-                                <rect key="frame" x="0.0" y="0.0" width="526" height="265"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

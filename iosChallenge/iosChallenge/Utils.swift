@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class Utils {
     
@@ -101,6 +102,26 @@ class Utils {
         numberFormatter.decimalSeparator = Constants.LocalizableKeys.Price.decimalSeparator
         
         return numberFormatter.string(from: NSNumber(value: value)) ?? ""
+    }
+    
+    static func isFavoriteAd(propertyCode: String) -> (codeFav: String, dateFav: Date)? {
+        if CoreDataManager.shared.isFavorite(propertyCode: propertyCode) {
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavoriteEntity")
+            fetchRequest.predicate = NSPredicate(format: "propertyCode == %@", propertyCode)
+            
+            do {
+                let results = try CoreDataManager.shared.context.fetch(fetchRequest)
+                if let favorite = results.first {
+                    let codeFav = favorite.value(forKey: "propertyCode") as! String
+                    let dateFav = favorite.value(forKey: "favDate") as! Date
+                    return (codeFav, dateFav)
+                }
+            } catch {
+                print("Error al comprobar si es favorito: \(error)")
+            }
+        }
+        
+        return nil
     }
     
 }

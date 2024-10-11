@@ -54,6 +54,7 @@ class PropertyAdCell: UITableViewCell {
     }
     
     func configureCell(property: PropertyListEntity?){
+        guard let property = property else {return}
         self.property = property
         self.selectionStyle = .none
         self.configurePropertyImages()
@@ -63,7 +64,7 @@ class PropertyAdCell: UITableViewCell {
         self.configureNavigation()
         self.addFavTapAction()
         self.favTextLabel.isHidden = true
-        self.favoriteAd = self.isFavoriteAd()
+        self.favoriteAd = Utils.isFavoriteAd(propertyCode: property.propertyCode)
         if let adFav = self.favoriteAd {
             self.favAd = true
             self.favIcon.image = UIImage(named: "favIcon")
@@ -215,12 +216,9 @@ class PropertyAdCell: UITableViewCell {
     
     func manageFavorites(addFav: Bool) {
         guard let property = self.property else { return }
-        let userDefaults = UserDefaults.standard
         if addFav {
             let date = Date()
-            let favProperty = ["code": property.propertyCode, "date": date] as [String : Any]
-            userDefaults.set(favProperty, forKey: property.propertyCode)
-            userDefaults.synchronize()
+            CoreDataManager.shared.saveFavorite(propertyCode: property.propertyCode)
             self.favTextLabel.alpha = 0.0
             UIView.animate(withDuration: 1.75, animations: {
                 self.favTextLabel.isHidden = false
@@ -240,20 +238,8 @@ class PropertyAdCell: UITableViewCell {
                 self.favTextLabel.isHidden = true
                 self.favTextLabel.alpha = 0.0
             })
-            userDefaults.removeObject(forKey: property.propertyCode)
-            userDefaults.synchronize()
+            CoreDataManager.shared.deleteFavorite(propertyCode: property.propertyCode)
         }
-    }
-    
-    func isFavoriteAd() -> (codeFav: String, dateFav: Date)? {
-        guard let property = self.property else { return nil }
-        let userDefaults = UserDefaults.standard
-        if let adFav = userDefaults.dictionary(forKey: property.propertyCode),
-           let codeFav = adFav["code"] as? String,
-           let dateFav = adFav["date"] as? Date {
-            return (codeFav, dateFav)
-        }
-        return nil
     }
     
     // MARK: Navigations
