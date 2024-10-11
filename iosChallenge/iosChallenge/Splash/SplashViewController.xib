@@ -29,6 +29,8 @@
             <constraints>
                 <constraint firstItem="uv6-Hz-N2n" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="0uy-JF-iae"/>
                 <constraint firstItem="uv6-Hz-N2n" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="CbH-UR-rsQ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uv6-Hz-N2n" secondAttribute="trailing" constant="16" id="gGQ-Xs-x0y"/>
+                <constraint firstItem="uv6-Hz-N2n" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="pw5-G0-d4L"/>
             </constraints>
             <point key="canvasLocation" x="132" y="-12"/>
         </view>

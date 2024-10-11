@@ -43,25 +43,29 @@ class BaseViewController: UIViewController {
     }
     
     private func setNavigationAppareance() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = .clear
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.compactAppearance = appearance
-        navigationController?.navigationBar.isTranslucent = true
+        DispatchQueue.main.async {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundColor = .clear
+            self.navigationController?.navigationBar.standardAppearance = appearance
+            self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+            self.navigationController?.navigationBar.compactAppearance = appearance
+            self.navigationController?.navigationBar.isTranslucent = true
+        }
     }
     
     func setCustomBackButton(title: String) {
-        if self.navigationController?.viewControllers.first != self {
-            self.navigationItem.hidesBackButton = true
-            let backButton = UIButton(type: .system)
-            backButton.setTitle(title, for: .normal)
-            backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-            backButton.tintColor = IdealistaColors.pinkIdealista
-            backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-            let backBarButtonItem = UIBarButtonItem(customView: backButton)
-            self.navigationItem.leftBarButtonItem = backBarButtonItem
+        DispatchQueue.main.async {
+            if self.navigationController?.viewControllers.first != self {
+                self.navigationItem.hidesBackButton = true
+                let backButton = UIButton(type: .system)
+                backButton.setTitle(title, for: .normal)
+                backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+                backButton.tintColor = IdealistaColors.pinkIdealista
+                backButton.addTarget(self, action: #selector(self.backButtonTapped), for: .touchUpInside)
+                let backBarButtonItem = UIBarButtonItem(customView: backButton)
+                self.navigationItem.leftBarButtonItem = backBarButtonItem
+            }
         }
     }
     
