@@ -101,7 +101,7 @@ class PropertyAdsIpadCell: UITableViewCell {
         self.configureNavigation()
         self.addFavTapAction()
         self.leftFavLabel.isHidden = true
-        self.leftFavoriteAd = self.isFavoriteAd(property: leftProperty)
+        self.leftFavoriteAd = Utils.isFavoriteAd(propertyCode: leftProperty.propertyCode)
         if let adFav = self.leftFavoriteAd {
             self.leftFavAd = true
             self.leftFavIcon.image = UIImage(named: "favIcon")
@@ -123,7 +123,7 @@ class PropertyAdsIpadCell: UITableViewCell {
         self.configureNavigation()
         self.addFavTapAction()
         self.rightFavLabel.isHidden = true
-        self.rightFavoriteAd = self.isFavoriteAd(property: rightProperty)
+        self.rightFavoriteAd = Utils.isFavoriteAd(propertyCode: rightProperty.propertyCode)
         if let adFav = self.rightFavoriteAd {
             self.rightFavAd = true
             self.rightFavIcon.image = UIImage(named: "favIcon")
@@ -371,12 +371,9 @@ class PropertyAdsIpadCell: UITableViewCell {
     
     func manageLeftFavorites(addFav: Bool) {
         guard let property = self.leftProperty else { return }
-        let userDefaults = UserDefaults.standard
         if addFav {
             let date = Date()
-            let favProperty = ["code": property.propertyCode, "date": date] as [String : Any]
-            userDefaults.set(favProperty, forKey: property.propertyCode)
-            userDefaults.synchronize()
+            CoreDataManager.shared.saveFavorite(propertyCode: property.propertyCode)
             self.leftFavLabel.alpha = 0.0
             UIView.animate(withDuration: 1.75, animations: {
                 self.leftFavLabel.isHidden = false
@@ -396,19 +393,15 @@ class PropertyAdsIpadCell: UITableViewCell {
                 self.leftFavLabel.isHidden = true
                 self.leftFavLabel.alpha = 0.0
             })
-            userDefaults.removeObject(forKey: property.propertyCode)
-            userDefaults.synchronize()
+            CoreDataManager.shared.deleteFavorite(propertyCode: property.propertyCode)
         }
     }
     
     func manageRightFavorites(addFav: Bool) {
         guard let property = self.rightProperty else { return }
-        let userDefaults = UserDefaults.standard
         if addFav {
             let date = Date()
-            let favProperty = ["code": property.propertyCode, "date": date] as [String : Any]
-            userDefaults.set(favProperty, forKey: property.propertyCode)
-            userDefaults.synchronize()
+            CoreDataManager.shared.saveFavorite(propertyCode: property.propertyCode)
             self.rightFavLabel.alpha = 0.0
             UIView.animate(withDuration: 1.75, animations: {
                 self.rightFavLabel.isHidden = false
@@ -428,19 +421,8 @@ class PropertyAdsIpadCell: UITableViewCell {
                 self.rightFavLabel.isHidden = true
                 self.rightFavLabel.alpha = 0.0
             })
-            userDefaults.removeObject(forKey: property.propertyCode)
-            userDefaults.synchronize()
+            CoreDataManager.shared.deleteFavorite(propertyCode: property.propertyCode)
         }
-    }
-    
-    func isFavoriteAd(property: PropertyListEntity) -> (codeFav: String, dateFav: Date)? {
-        let userDefaults = UserDefaults.standard
-        if let adFav = userDefaults.dictionary(forKey: property.propertyCode),
-           let codeFav = adFav["code"] as? String,
-           let dateFav = adFav["date"] as? Date {
-            return (codeFav, dateFav)
-        }
-        return nil
     }
     
     // MARK: Navigations

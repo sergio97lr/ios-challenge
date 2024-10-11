@@ -70,7 +70,7 @@ class InfoDetailTableViewCell: UITableViewCell {
             self.collectionViewHeightConstraint.constant = self.phoneCollectionHeight
             self.mapWidthConstraint.constant = self.phoneMapSize
             self.mapHeightConstraint.constant = self.phoneMapSize
-
+            
         }
         
         self.originalPropertyCode = originalPropertyCode
@@ -103,7 +103,7 @@ class InfoDetailTableViewCell: UITableViewCell {
         
         self.favLabel.numberOfLines = 0
         self.addFavTapAction()
-        self.favoriteAd = self.isFavoriteAd()
+        self.favoriteAd = Utils.isFavoriteAd(propertyCode: originalPropertyCode)
         if let adFav = self.favoriteAd {
             self.favAd = true
             self.favIcon.image = UIImage(named: "favIcon")
@@ -192,12 +192,9 @@ class InfoDetailTableViewCell: UITableViewCell {
     }
     
     func manageFavorites(addFav: Bool) {
-        let userDefaults = UserDefaults.standard
         if addFav {
             let date = Date()
-            let favProperty = ["code": self.originalPropertyCode, "date": date] as [String : Any]
-            userDefaults.set(favProperty, forKey: self.originalPropertyCode)
-            userDefaults.synchronize()
+            CoreDataManager.shared.saveFavorite(propertyCode: self.originalPropertyCode)
             UIView.animate(withDuration: 0.75, animations: {
                 self.favLabel.alpha = 0.0
             }) { _ in
@@ -217,21 +214,11 @@ class InfoDetailTableViewCell: UITableViewCell {
                     self.favLabel.alpha = 1.0
                 }
             }
-            userDefaults.removeObject(forKey: self.originalPropertyCode)
-            userDefaults.synchronize()
+            
+            CoreDataManager.shared.deleteFavorite(propertyCode: self.originalPropertyCode)
         }
         
         self.favLabel.sizeToFit()
-    }
-    
-    func isFavoriteAd() -> (codeFav: String, dateFav: Date)? {
-        let userDefaults = UserDefaults.standard
-        if let adFav = userDefaults.dictionary(forKey: self.originalPropertyCode),
-           let codeFav = adFav["code"] as? String,
-           let dateFav = adFav["date"] as? Date {
-            return (codeFav, dateFav)
-        }
-        return nil
     }
     
     func updateImageTintColor() {

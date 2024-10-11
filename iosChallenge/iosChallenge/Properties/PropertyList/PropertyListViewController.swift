@@ -71,8 +71,6 @@ extension PropertyListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var p = 1/2
-        print("pppp \(p)")
         if UIDevice.current.userInterfaceIdiom == .pad {
             return (self.propertyList?.count ?? 2 + 1)/2
         } else {
