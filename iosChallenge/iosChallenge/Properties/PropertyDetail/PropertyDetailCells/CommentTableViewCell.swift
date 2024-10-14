@@ -39,7 +39,7 @@ class CommentTableViewCell: UITableViewCell {
         
         self.viewFullTextLabel.text = Constants.LocalizableKeys.Home.fullComment
         self.viewFullTextLabel.isUserInteractionEnabled = true
-        self.viewFullTextLabel.textColor = IdealistaColors.pinkIdealista
+        self.viewFullTextLabel.textColor = IdealistaColors.lightPinkIdealista
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(navigateToFullComment))
         self.viewFullTextLabel.addGestureRecognizer(tapGesture)

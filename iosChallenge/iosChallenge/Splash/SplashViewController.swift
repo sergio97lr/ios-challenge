@@ -17,19 +17,20 @@ class SplashViewController: UIViewController {
         super.viewDidLoad()
         let splashImage = UIImage(named: "idealistaLong")
         let tintedImage = splashImage?.withRenderingMode(.alwaysTemplate)
-        splashIconImageView.image = tintedImage
+        self.splashIconImageView.image = tintedImage
+        self.updateImageTintColor()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        updateImageTintColor()
+        self.updateImageTintColor()
     }
     
     func updateImageTintColor() {
         if traitCollection.userInterfaceStyle == .dark {
-            splashIconImageView.tintColor = UIColor.white
+            self.splashIconImageView.tintColor = UIColor.white
         } else {
-            splashIconImageView.tintColor = UIColor.black
+            self.splashIconImageView.tintColor = UIColor.black
         }
     }
 
