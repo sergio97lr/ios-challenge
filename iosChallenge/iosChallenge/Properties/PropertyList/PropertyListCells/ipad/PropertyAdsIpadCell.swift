@@ -442,7 +442,7 @@ class PropertyAdsIpadCell: UITableViewCell {
     }
     
     @objc func rightStackViewTapped() {
-        guard let property = self.leftProperty else { return }
+        guard let property = self.rightProperty else { return }
         let propertyExtraParams: ExtraParams = ExtraParams(originalPropertyCode: property.propertyCode, address: property.address, district: property.district, municipality: property.municipality, parking: property.parkingSpace?.hasParkingSpace ?? false, parkingIncluded: property.parkingSpace?.parkingPriceIncluded ?? false)
         self.delegate?.navigateToDetail(extraParams: propertyExtraParams)
     }
