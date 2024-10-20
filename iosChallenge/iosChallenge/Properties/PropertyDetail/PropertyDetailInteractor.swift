@@ -118,6 +118,4 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
     func getProperty() async -> PropertyEntity? {
         return await Utils.getPropertyData(type: "detail") as? PropertyEntity
     }
-    
-    
 }

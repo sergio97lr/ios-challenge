@@ -12,7 +12,7 @@ import UIKit
 class CoreDataManager {
     static let shared = CoreDataManager()
 
-    let context: NSManagedObjectContext = {
+    var context: NSManagedObjectContext = {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext
     }()
