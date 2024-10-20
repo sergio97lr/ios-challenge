@@ -6,7 +6,18 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		DC5761752CC012D200AD1F0B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCBA3FFA2CAD90710027481B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCBA40012CAD90710027481B;
+			remoteInfo = iosChallenge;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		DC5761712CC012D200AD1F0B /* iosChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCBA40022CAD90710027481B /* iosChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -21,6 +32,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		DC5761722CC012D200AD1F0B /* iosChallengeTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = iosChallengeTests;
+			sourceTree = "<group>";
+		};
 		DCBA40042CAD90710027481B /* iosChallenge */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -32,6 +48,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DC57616E2CC012D200AD1F0B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DCBA3FFF2CAD90710027481B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -46,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				DCBA40042CAD90710027481B /* iosChallenge */,
+				DC5761722CC012D200AD1F0B /* iosChallengeTests */,
 				DCBA40032CAD90710027481B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				DCBA40022CAD90710027481B /* iosChallenge.app */,
+				DC5761712CC012D200AD1F0B /* iosChallengeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +86,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DC5761702CC012D200AD1F0B /* iosChallengeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC5761792CC012D200AD1F0B /* Build configuration list for PBXNativeTarget "iosChallengeTests" */;
+			buildPhases = (
+				DC57616D2CC012D200AD1F0B /* Sources */,
+				DC57616E2CC012D200AD1F0B /* Frameworks */,
+				DC57616F2CC012D200AD1F0B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DC5761762CC012D200AD1F0B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DC5761722CC012D200AD1F0B /* iosChallengeTests */,
+			);
+			name = iosChallengeTests;
+			packageProductDependencies = (
+			);
+			productName = iosChallengeTests;
+			productReference = DC5761712CC012D200AD1F0B /* iosChallengeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		DCBA40012CAD90710027481B /* iosChallenge */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DCBA40152CAD90720027481B /* Build configuration list for PBXNativeTarget "iosChallenge" */;
@@ -93,6 +141,10 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					DC5761702CC012D200AD1F0B = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = DCBA40012CAD90710027481B;
+					};
 					DCBA40012CAD90710027481B = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -114,11 +166,19 @@
 			projectRoot = "";
 			targets = (
 				DCBA40012CAD90710027481B /* iosChallenge */,
+				DC5761702CC012D200AD1F0B /* iosChallengeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DC57616F2CC012D200AD1F0B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DCBA40002CAD90710027481B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -129,6 +189,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DC57616D2CC012D200AD1F0B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DCBA3FFE2CAD90710027481B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -138,7 +205,49 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		DC5761762CC012D200AD1F0B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCBA40012CAD90710027481B /* iosChallenge */;
+			targetProxy = DC5761752CC012D200AD1F0B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		DC5761772CC012D200AD1F0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Sergio.iosChallengeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iosChallenge.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iosChallenge";
+			};
+			name = Debug;
+		};
+		DC5761782CC012D200AD1F0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Sergio.iosChallengeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iosChallenge.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iosChallenge";
+			};
+			name = Release;
+		};
 		DCBA40162CAD90720027481B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -319,6 +428,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DC5761792CC012D200AD1F0B /* Build configuration list for PBXNativeTarget "iosChallengeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC5761772CC012D200AD1F0B /* Debug */,
+				DC5761782CC012D200AD1F0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DCBA3FFD2CAD90710027481B /* Build configuration list for PBXProject "iosChallenge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
