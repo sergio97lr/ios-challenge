@@ -73,6 +73,7 @@ struct Constants {
             static let theme = "tema".localized
             static let light_theme = "tema_claro".localized
             static let dark_theme = "tema_oscuro".localized
+            static let yourFavorites = "tus_favoritos".localized
         }
     }
     

@@ -27,18 +27,25 @@ class CoreDataManager {
         }
     }
     
-    func saveFavorite(propertyCode: String) {
-        guard let entity = NSEntityDescription.entity(forEntityName: "FavoriteEntity", in: context) else {
-            print("Error: La entidad 'FavoriteEntity' no se encontró.")
-            return
+    func saveFavorite(propertyCode: String, favDate: Date, address: String, district: String, municipality: String, parking: Bool, parkingIncluded: Bool, price: Double, currencySufix: String) {
+            guard let entity = NSEntityDescription.entity(forEntityName: "FavoriteEntity", in: context) else {
+                print("Error: La entidad 'FavoriteEntity' no se encontró.")
+                return
+            }
+            
+            let newFavorite = NSManagedObject(entity: entity, insertInto: context)
+            newFavorite.setValue(propertyCode, forKey: "propertyCode")
+            newFavorite.setValue(favDate, forKey: "favDate")
+            newFavorite.setValue(address, forKey: "address")
+            newFavorite.setValue(district, forKey: "district")
+            newFavorite.setValue(municipality, forKey: "municipality")
+            newFavorite.setValue(parking, forKey: "parking")
+            newFavorite.setValue(parkingIncluded, forKey: "parkingIncluded")
+            newFavorite.setValue(price, forKey: "price")
+            newFavorite.setValue(currencySufix, forKey: "currencySufix")
+            
+            saveContext()
         }
-        
-        let newFavorite = NSManagedObject(entity: entity, insertInto: context)
-        newFavorite.setValue(propertyCode, forKey: "propertyCode")
-        newFavorite.setValue(Date(), forKey: "favDate")
-        
-        saveContext()
-    }
     
     func deleteFavorite(propertyCode: String) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavoriteEntity")
@@ -65,6 +72,18 @@ class CoreDataManager {
         } catch {
             print("Error al comprobar si es favorito: \(error)")
             return false
+        }
+    }
+    
+    func getAllFavorites() -> [FavoriteEntity] {
+        let fetchRequest = NSFetchRequest<FavoriteEntity>(entityName: "FavoriteEntity")
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            return results
+        } catch {
+            print("Error al recuperar los favoritos: \(error)")
+            return []
         }
     }
 }

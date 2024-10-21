@@ -44,6 +44,13 @@ class PropertyAdsIpadCell: UITableViewCell {
     var rightFavAd: Bool = false
     var leftFavoriteAd: (String, Date)? = nil
     var rightFavoriteAd: (String, Date)? = nil
+    var leftPropertyExtraParams: ExtraParams?
+    var rightPropertyExtraParams: ExtraParams?
+    var priceLeft: Double = 0.0
+    var priceRight: Double = 0.0
+    var leftCurrecySufix: String = ""
+    var rightCurrecySufix: String = ""
+    
     
     // MARK: PrepareForReuse
     override func prepareForReuse() {
@@ -71,6 +78,8 @@ class PropertyAdsIpadCell: UITableViewCell {
         self.rightFavAd = false
         self.rightFavIcon.image = UIImage(named: "noFavIconList")
         self.rightPlaceholderImage.isHidden = false
+        self.leftPropertyExtraParams = nil
+        self.rightPropertyExtraParams = nil
     }
     
     override func awakeFromNib() {
@@ -94,6 +103,8 @@ class PropertyAdsIpadCell: UITableViewCell {
     func configureLeft(leftProperty: PropertyListEntity?) {
         guard let leftProperty = leftProperty else { return }
         self.leftProperty = leftProperty
+        let leftExtraParams = ExtraParams(originalPropertyCode: leftProperty.propertyCode, address: leftProperty.address, district: leftProperty.district, municipality: leftProperty.municipality, parking: leftProperty.parkingSpace?.hasParkingSpace ?? false, parkingIncluded: leftProperty.parkingSpace?.parkingPriceIncluded ?? false)
+        self.leftPropertyExtraParams = leftExtraParams
         self.configurePropertyImages(property: leftProperty, isLeft: true)
         self.configureLeftStackView(property: leftProperty)
         self.leftAdView.layer.borderWidth = 1
@@ -116,6 +127,8 @@ class PropertyAdsIpadCell: UITableViewCell {
     func configureRight(rightProperty: PropertyListEntity?) {
         guard let rightProperty = rightProperty else { return }
         self.rightProperty = rightProperty
+        let rightExtraParams = ExtraParams(originalPropertyCode: rightProperty.propertyCode, address: rightProperty.address, district: rightProperty.district, municipality: rightProperty.municipality, parking: rightProperty.parkingSpace?.hasParkingSpace ?? false, parkingIncluded: rightProperty.parkingSpace?.parkingPriceIncluded ?? false)
+        self.rightPropertyExtraParams = rightExtraParams
         self.configurePropertyImages(property: rightProperty, isLeft: false)
         self.configureRightStackView(property: rightProperty)
         self.rightAdView.layer.borderWidth = 1
@@ -370,10 +383,10 @@ class PropertyAdsIpadCell: UITableViewCell {
     }
     
     func manageLeftFavorites(addFav: Bool) {
-        guard let property = self.leftProperty else { return }
+        guard let property = self.leftProperty, let propertyExtraParams = self.leftPropertyExtraParams else { return }
         if addFav {
             let date = Date()
-            CoreDataManager.shared.saveFavorite(propertyCode: property.propertyCode)
+            CoreDataManager.shared.saveFavorite(propertyCode: property.propertyCode, favDate: Date(), address: propertyExtraParams.address, district: propertyExtraParams.district, municipality: propertyExtraParams.municipality, parking: propertyExtraParams.parking, parkingIncluded: propertyExtraParams.parkingIncluded, price: property.priceInfo.price.amount, currencySufix: property.priceInfo.price.currencySuffix)
             self.leftFavLabel.alpha = 0.0
             UIView.animate(withDuration: 1.75, animations: {
                 self.leftFavLabel.isHidden = false
@@ -398,10 +411,10 @@ class PropertyAdsIpadCell: UITableViewCell {
     }
     
     func manageRightFavorites(addFav: Bool) {
-        guard let property = self.rightProperty else { return }
+        guard let property = self.rightProperty, let propertyExtraParams = self.rightPropertyExtraParams else { return }
         if addFav {
             let date = Date()
-            CoreDataManager.shared.saveFavorite(propertyCode: property.propertyCode)
+            CoreDataManager.shared.saveFavorite(propertyCode: property.propertyCode, favDate: Date(), address: propertyExtraParams.address, district: propertyExtraParams.district, municipality: propertyExtraParams.municipality, parking: propertyExtraParams.parking, parkingIncluded: propertyExtraParams.parkingIncluded, price: property.priceInfo.price.amount, currencySufix: property.priceInfo.price.currencySuffix)
             self.rightFavLabel.alpha = 0.0
             UIView.animate(withDuration: 1.75, animations: {
                 self.rightFavLabel.isHidden = false
@@ -436,14 +449,12 @@ class PropertyAdsIpadCell: UITableViewCell {
     }
     
     @objc func leftStackViewTapped() {
-        guard let property = self.leftProperty else { return }
-        let propertyExtraParams: ExtraParams = ExtraParams(originalPropertyCode: property.propertyCode, address: property.address, district: property.district, municipality: property.municipality, parking: property.parkingSpace?.hasParkingSpace ?? false, parkingIncluded: property.parkingSpace?.parkingPriceIncluded ?? false)
+        guard let propertyExtraParams = self.leftPropertyExtraParams else { return }
         self.delegate?.navigateToDetail(extraParams: propertyExtraParams)
     }
     
     @objc func rightStackViewTapped() {
-        guard let property = self.rightProperty else { return }
-        let propertyExtraParams: ExtraParams = ExtraParams(originalPropertyCode: property.propertyCode, address: property.address, district: property.district, municipality: property.municipality, parking: property.parkingSpace?.hasParkingSpace ?? false, parkingIncluded: property.parkingSpace?.parkingPriceIncluded ?? false)
+        guard let propertyExtraParams = self.rightPropertyExtraParams else { return }
         self.delegate?.navigateToDetail(extraParams: propertyExtraParams)
     }
     

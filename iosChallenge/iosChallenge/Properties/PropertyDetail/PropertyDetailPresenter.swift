@@ -8,7 +8,7 @@
 import UIKit
 
 enum DetailCellType {
-    case propertyDetail(originalPropertyCode: String ,images: [ImageDetail], address: String, district: String, municipality: String, price: PriceInfoDetail, rooms: Int, size: Double, exterior: Bool, propertyType: String, operation: String, floor: String, latitude: Double, longitude: Double)
+    case propertyDetail(originalPropertyCode: String ,images: [ImageDetail], address: String, district: String, municipality: String, price: PriceInfoDetail, rooms: Int, size: Double, exterior: Bool, propertyType: String, operation: String, floor: String, latitude: Double, longitude: Double, parking: Bool, parkingIncluded: Bool)
     case title(text: String)
     case propertyComment(propertyComment: String)
     case additionalPropertyInfo(text:String)
