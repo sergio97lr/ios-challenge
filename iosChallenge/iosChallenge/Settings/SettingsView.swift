@@ -13,7 +13,7 @@ struct SettingsView: View {
     @AppStorage("selectedTheme") var selectedTheme = "system"
     @State private var showLanguageAlert = false
     @State private var alertText = ""
-
+    
     var body: some View {
         Group {
             if UIDevice.current.userInterfaceIdiom == .pad {
@@ -61,10 +61,12 @@ struct SettingsView: View {
             )
         }
     }
-
+    
     var settingsForm: some View {
         Form {
-            // Sección de idioma
+            let favorites = CoreDataManager.shared.getAllFavorites()
+            
+            // MARK: Language
             Section(header: Text(Constants.LocalizableKeys.Settings.language)) {
                 Picker("Select Language", selection: $selectedLanguage) {
                     ForEach(["system", "en", "es"], id: \.self) { language in
@@ -77,7 +79,7 @@ struct SettingsView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
             }
-            // Sección de tema
+            // MARK: Theme
             Section(header: Text(Constants.LocalizableKeys.Settings.theme)) {
                 Picker("Select Theme", selection: $selectedTheme) {
                     ForEach(["system", "light", "dark"], id: \.self) { theme in
@@ -90,9 +92,30 @@ struct SettingsView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
             }
+            
+            // MARK: Favorites
+            if !favorites.isEmpty {
+                Section(header: Text(Constants.LocalizableKeys.Settings.yourFavorites)) {
+                    ForEach(favorites, id: \.self) { favorite in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(favorite.address ?? "")
+                                    .font(.headline)
+                                Text(favorite.district ?? "")
+                                    .font(.subheadline)
+                                Text("\(Utils.formatPrice(favorite.price) ?? "")\(favorite.currencySufix ?? "")")
+                                    .font(.footnote)
+                            }
+                            Spacer()
+                            Image("favIcon")
+                        }
+                        .padding(.vertical, 5)
+                    }
+                }
+            }
         }
     }
-
+    
     func changeLanguage(to language: String) {
         let languageCode: String
         switch language {
@@ -105,7 +128,7 @@ struct SettingsView: View {
         }
         LocalizationManager.shared.setLanguage(languageCode: languageCode)
     }
-
+    
     func applyTheme(_ selectedTheme: String) {
         let interfaceStyle: UIUserInterfaceStyle
         switch selectedTheme {
@@ -122,7 +145,7 @@ struct SettingsView: View {
             }
         }
     }
-
+    
     func languageDisplayName(for language: String) -> String {
         switch language {
         case "system": return Constants.LocalizableKeys.Settings.defaultText
@@ -131,7 +154,7 @@ struct SettingsView: View {
         default: return language
         }
     }
-
+    
     func themeDisplayName(for theme: String) -> String {
         switch theme {
         case "system": return Constants.LocalizableKeys.Settings.defaultText

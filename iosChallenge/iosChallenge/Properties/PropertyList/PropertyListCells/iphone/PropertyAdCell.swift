@@ -28,6 +28,7 @@ class PropertyAdCell: UITableViewCell {
     var property: PropertyListEntity?
     var favAd: Bool = false
     var favoriteAd: (String, Date)? = nil
+    var propertyExtraParams: ExtraParams?
     
     // MARK: PrepareForReuse
     override func prepareForReuse() {
@@ -44,6 +45,7 @@ class PropertyAdCell: UITableViewCell {
         self.favIcon.image = UIImage(named: "noFavIconList")
         self.placeholderImage.isHidden = false
         self.imageList = []
+        self.propertyExtraParams = nil
     }
     
     override func awakeFromNib() {
@@ -55,6 +57,8 @@ class PropertyAdCell: UITableViewCell {
     
     func configureCell(property: PropertyListEntity?){
         guard let property = property else {return}
+        let extraParams = ExtraParams(originalPropertyCode: property.propertyCode, address: property.address, district: property.district, municipality: property.municipality, parking: property.parkingSpace?.hasParkingSpace ?? false, parkingIncluded: property.parkingSpace?.parkingPriceIncluded ?? false)
+        self.propertyExtraParams = extraParams
         self.property = property
         self.selectionStyle = .none
         self.configurePropertyImages()
@@ -215,10 +219,10 @@ class PropertyAdCell: UITableViewCell {
     }
     
     func manageFavorites(addFav: Bool) {
-        guard let property = self.property else { return }
+        guard let property = self.property, let propertyExtraParams = self.propertyExtraParams else { return }
         if addFav {
             let date = Date()
-            CoreDataManager.shared.saveFavorite(propertyCode: property.propertyCode)
+            CoreDataManager.shared.saveFavorite(propertyCode: property.propertyCode, favDate: Date(), address: propertyExtraParams.address, district: propertyExtraParams.district, municipality: propertyExtraParams.municipality, parking: propertyExtraParams.parking, parkingIncluded: propertyExtraParams.parkingIncluded, price: property.priceInfo.price.amount, currencySufix: property.priceInfo.price.currencySuffix)
             self.favTextLabel.alpha = 0.0
             UIView.animate(withDuration: 1.75, animations: {
                 self.favTextLabel.isHidden = false
@@ -250,8 +254,7 @@ class PropertyAdCell: UITableViewCell {
     }
     
     @objc func stackViewTapped() {
-        guard let property = self.property else { return }
-        let propertyExtraParams: ExtraParams = ExtraParams(originalPropertyCode: property.propertyCode, address: property.address, district: property.district, municipality: property.municipality, parking: property.parkingSpace?.hasParkingSpace ?? false, parkingIncluded: property.parkingSpace?.parkingPriceIncluded ?? false)
+        guard let propertyExtraParams = self.propertyExtraParams else { return }
         self.delegate?.navigateToDetail(extraParams: propertyExtraParams)
     }
     

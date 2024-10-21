@@ -28,6 +28,7 @@ class PropertyListViewController: BaseViewController {
         self.propertyListTableView.reloadData()
     }
     
+    
     func setupView() {
         self.propertyListTableView.register(UINib(nibName: "PropertyAdCell", bundle: nil),
                                             forCellReuseIdentifier: "PropertyAdCell")

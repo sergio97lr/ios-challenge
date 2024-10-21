@@ -141,5 +141,4 @@ struct ExtraParams {
     let municipality: String
     let parking: Bool
     let parkingIncluded: Bool
-    
 }

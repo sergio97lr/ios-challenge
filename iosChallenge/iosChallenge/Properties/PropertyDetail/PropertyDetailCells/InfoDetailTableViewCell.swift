@@ -27,13 +27,15 @@ class InfoDetailTableViewCell: UITableViewCell {
     var imageList: [(image: UIImage, tag: String)] = []
     var favAd = false
     var favoriteAd: (String, Date)? = nil
-    var originalPropertyCode = ""
     let phoneCollectionHeight = 320.0
     let padCollectionHeight = 600.0
     let phoneMapSize = 38.0
     let padMapSize = 64.0
     var latitude: Double?
     var longitude: Double?
+    var favData: ExtraParams?
+    var price: Double = 0.0
+    var currencySufix: String = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,7 +51,6 @@ class InfoDetailTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         self.favAd = false
-        self.originalPropertyCode = ""
         self.favIcon.image = UIImage(named: "noFavIconDetail")
         self.operationLabel.text = ""
         self.addresLabel.text = ""
@@ -58,9 +59,12 @@ class InfoDetailTableViewCell: UITableViewCell {
         self.extraInfoLabel.text = ""
         self.favLabel.text = ""
         self.placeholderView.isHidden = false
+        self.favData = nil
+        self.price = 0.0
+        self.currencySufix = ""
     }
     
-    func configureCell(originalPropertyCode: String ,images: [ImageDetail], address: String, district: String, municipality: String, price: PriceInfoDetail, rooms: Int, size: Double, exterior: Bool, propertyType: String, operation: String, floor: String, latitude: Double, longitude: Double) {
+    func configureCell(originalPropertyCode: String ,images: [ImageDetail], address: String, district: String, municipality: String, price: PriceInfoDetail, rooms: Int, size: Double, exterior: Bool, propertyType: String, operation: String, floor: String, latitude: Double, longitude: Double, parking: Bool, parkingIncluded: Bool) {
         
         if UIDevice.current.userInterfaceIdiom == .pad {
             self.collectionViewHeightConstraint.constant = self.padCollectionHeight
@@ -73,7 +77,9 @@ class InfoDetailTableViewCell: UITableViewCell {
             
         }
         
-        self.originalPropertyCode = originalPropertyCode
+        let favData = ExtraParams(originalPropertyCode: originalPropertyCode, address: address, district: district, municipality: municipality, parking: parking, parkingIncluded: parkingIncluded)
+        self.favData = favData
+        
         self.configurePropertyImages(images: images)
         if operation.contains("sale") {
             self.operationLabel.text = Constants.LocalizableKeys.Operation.sale
@@ -91,6 +97,8 @@ class InfoDetailTableViewCell: UITableViewCell {
         
         let priceFormatted = Utils.formatPrice(price.amount) ?? "0"
         self.priceLabel.text = "\(priceFormatted)\(price.currencySuffix)"
+        self.price = price.amount
+        self.currencySufix = price.currencySuffix
         
         let size = Int(size)
         let exterior = exterior
@@ -192,9 +200,10 @@ class InfoDetailTableViewCell: UITableViewCell {
     }
     
     func manageFavorites(addFav: Bool) {
+        guard let favData = self.favData else { return }
         if addFav {
             let date = Date()
-            CoreDataManager.shared.saveFavorite(propertyCode: self.originalPropertyCode)
+            CoreDataManager.shared.saveFavorite(propertyCode: favData.originalPropertyCode, favDate: Date(), address: favData.address, district: favData.district, municipality: favData.municipality, parking: favData.parking, parkingIncluded: favData.parkingIncluded, price: self.price, currencySufix: self.currencySufix)
             UIView.animate(withDuration: 0.75, animations: {
                 self.favLabel.alpha = 0.0
             }) { _ in
@@ -215,7 +224,7 @@ class InfoDetailTableViewCell: UITableViewCell {
                 }
             }
             
-            CoreDataManager.shared.deleteFavorite(propertyCode: self.originalPropertyCode)
+            CoreDataManager.shared.deleteFavorite(propertyCode: favData.originalPropertyCode)
         }
         
         self.favLabel.sizeToFit()

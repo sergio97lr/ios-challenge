@@ -43,7 +43,14 @@ class CoreDataManagerTests: XCTestCase {
     func testIsFavoriteAd() {
         // Given
         let propertyCode = "1234"
-        coreDataManager.saveFavorite(propertyCode: propertyCode)
+        let address = "calle Lagasca"
+        let district = "Barrio Salamanca"
+        let municipality = "Madrid"
+        let parking = true
+        let parkingIncluded = false
+        let price = 1938434.0
+        let currencySufix = "€"
+        coreDataManager.saveFavorite(propertyCode: propertyCode, favDate: Date(), address: address, district: district, municipality: municipality, parking: parking, parkingIncluded: parkingIncluded, price: price, currencySufix: currencySufix)
         
         // When
         let result = Utils.isFavoriteAd(propertyCode: propertyCode)
@@ -57,10 +64,17 @@ class CoreDataManagerTests: XCTestCase {
     // Test to save a favorite
     func testSaveFavorite() {
         // Given
-        let propertyCode = "12345"
+        let propertyCode = "1234"
+        let address = "calle Lagasca"
+        let district = "Barrio Salamanca"
+        let municipality = "Madrid"
+        let parking = true
+        let parkingIncluded = false
+        let price = 1938434.0
+        let currencySufix = "€"
         
         // When
-        coreDataManager.saveFavorite(propertyCode: propertyCode)
+        coreDataManager.saveFavorite(propertyCode: propertyCode, favDate: Date(), address: address, district: district, municipality: municipality, parking: parking, parkingIncluded: parkingIncluded, price: price, currencySufix: currencySufix)
         
         // Then
         XCTAssertTrue(coreDataManager.isFavorite(propertyCode: propertyCode))
@@ -69,8 +83,15 @@ class CoreDataManagerTests: XCTestCase {
     // Test to delete a favorite
     func testDeleteFavorite() {
         // Given
-        let propertyCode = "123456"
-        coreDataManager.saveFavorite(propertyCode: propertyCode)
+        let propertyCode = "1234"
+        let address = "calle Lagasca"
+        let district = "Barrio Salamanca"
+        let municipality = "Madrid"
+        let parking = true
+        let parkingIncluded = false
+        let price = 1938434.0
+        let currencySufix = "€"
+        coreDataManager.saveFavorite(propertyCode: propertyCode, favDate: Date(), address: address, district: district, municipality: municipality, parking: parking, parkingIncluded: parkingIncluded, price: price, currencySufix: currencySufix)
         
         // When
         coreDataManager.deleteFavorite(propertyCode: propertyCode)
@@ -82,8 +103,15 @@ class CoreDataManagerTests: XCTestCase {
     // Test to check if a property is favorite
     func testIsFavorite() {
         // Given
-        let propertyCode = "1234567"
-        coreDataManager.saveFavorite(propertyCode: propertyCode)
+        let propertyCode = "1234"
+        let address = "calle Lagasca"
+        let district = "Barrio Salamanca"
+        let municipality = "Madrid"
+        let parking = true
+        let parkingIncluded = false
+        let price = 1938434.0
+        let currencySufix = "€"
+        coreDataManager.saveFavorite(propertyCode: propertyCode, favDate: Date(), address: address, district: district, municipality: municipality, parking: parking, parkingIncluded: parkingIncluded, price: price, currencySufix: currencySufix)
         
         // When
         let isFavorite = coreDataManager.isFavorite(propertyCode: propertyCode)
@@ -92,11 +120,42 @@ class CoreDataManagerTests: XCTestCase {
         XCTAssertTrue(isFavorite)
     }
     
+    // Test to fetch all favorites
+        func testGetAllFavorites() {
+            // Given
+            let propertyCode1 = "1234"
+            let propertyCode2 = "4321"
+            let address = "calle Lagasca"
+            let district = "Barrio Salamanca"
+            let municipality = "Madrid"
+            let parking = true
+            let parkingIncluded = false
+            let price = 1938434.0
+            let currencySufix = "€"
+            coreDataManager.saveFavorite(propertyCode: propertyCode1, favDate: Date(), address: address, district: district, municipality: municipality, parking: parking, parkingIncluded: parkingIncluded, price: price, currencySufix: currencySufix)
+            coreDataManager.saveFavorite(propertyCode: propertyCode2, favDate: Date(), address: address, district: district, municipality: municipality, parking: parking, parkingIncluded: parkingIncluded, price: price, currencySufix: currencySufix)
+
+            // When
+            let favorites = coreDataManager.getAllFavorites()
+            
+            // Then
+            XCTAssertEqual(favorites.count, 2)
+            XCTAssertTrue(favorites.contains { $0.propertyCode == propertyCode1 })
+            XCTAssertTrue(favorites.contains { $0.propertyCode == propertyCode2 })
+        }
+    
     // Test to save context with changes
     func testSaveContextWithChanges() {
         // Given
-        let propertyCode = "12"
-        coreDataManager.saveFavorite(propertyCode: propertyCode)
+        let propertyCode = "1234"
+        let address = "calle Lagasca"
+        let district = "Barrio Salamanca"
+        let municipality = "Madrid"
+        let parking = true
+        let parkingIncluded = false
+        let price = 1938434.0
+        let currencySufix = "€"
+        coreDataManager.saveFavorite(propertyCode: propertyCode, favDate: Date(), address: address, district: district, municipality: municipality, parking: parking, parkingIncluded: parkingIncluded, price: price, currencySufix: currencySufix)
         
         // When
         coreDataManager.saveContext()
@@ -109,7 +168,7 @@ class CoreDataManagerTests: XCTestCase {
     func testSaveContextWithoutChanges() {
         // Given
         let context = coreDataManager.context
-        context.processPendingChanges()  // Ensure there are no pending changes
+        context.processPendingChanges()
         
         // When
         coreDataManager.saveContext()
