@@ -60,6 +60,19 @@ struct Constants {
         
         struct Others {
             static let en = "en".localized
+            static let languageChange = "cambio_idioma".localized
+            static let languageChangeText = "cambio_idioma_text".localized
+        }
+        
+        struct Settings {
+            static let defaultText = "predeterminado".localized
+            static let english = "ingles".localized
+            static let spanish = "espanol".localized
+            static let language = "idioma".localized
+            static let settings = "ajustes".localized
+            static let theme = "tema".localized
+            static let light_theme = "tema_claro".localized
+            static let dark_theme = "tema_oscuro".localized
         }
     }
     
