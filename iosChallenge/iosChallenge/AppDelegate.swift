@@ -10,7 +10,6 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
     
     lazy var persistentContainer: NSPersistentContainer = {
@@ -22,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
-
+    
     func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -34,14 +33,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        Bundle.swizzleLocalization()
+        Bundle.setLanguage(LocalizationManager.shared.getLanguage())
+        
         let splashtRouter = SplashRouter()
-
         self.window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = splashtRouter.view
         window?.makeKeyAndVisible()
-
+        
+        DispatchQueue.main.async {
+            self.applyStoredSettings()
+        }
+        
         return true
     }
+    
+    func applyStoredSettings() {
+        let selectedTheme = UserDefaults.standard.string(forKey: "selectedTheme") ?? "system"
+        applyTheme(selectedTheme)
+    }
+    
+    func applyTheme(_ selectedTheme: String) {
+        let interfaceStyle: UIUserInterfaceStyle
+        switch selectedTheme {
+        case "light":
+            interfaceStyle = .light
+        case "dark":
+            interfaceStyle = .dark
+        default:
+            interfaceStyle = .unspecified
+        }
+        
+        DispatchQueue.main.async {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                for window in windowScene.windows {
+                    window.overrideUserInterfaceStyle = interfaceStyle
+                }
+            }
+        }
+    }
 }
+

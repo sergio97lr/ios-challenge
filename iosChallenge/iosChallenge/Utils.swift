@@ -11,6 +11,7 @@ import CoreData
 
 class Utils {
     
+    // MARK: Load Data
     static func loadLocalJSON(filename: String) -> Data? {
         if let fileURL = Bundle.main.url(forResource: filename, withExtension: "json") {
             return try? Data(contentsOf: fileURL)
@@ -58,6 +59,8 @@ class Utils {
             }
         }
     
+    // MARK: Format Dates
+    
     static func formatDate(date: Date) -> (formattedTime: String, formattedDate: String) {
         let dateFormatter = DateFormatter()
         
@@ -70,14 +73,29 @@ class Utils {
         return (formattedTime, formattedDate)
     }
     
+    //MARK: Format Prices
+    
     static func formatPrice(_ precio: Double) -> String? {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.locale = Locale(identifier: "en")
         numberFormatter.groupingSeparator = Constants.LocalizableKeys.Price.millarSeparator
+        numberFormatter.decimalSeparator = Constants.LocalizableKeys.Price.decimalSeparator
         return numberFormatter.string(from: NSNumber(value: precio))
     }
     
+    static func formatPricePerSquareMeter(_ value: Double) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.locale = Locale(identifier: "en")
+        numberFormatter.groupingSeparator = Constants.LocalizableKeys.Price.millarSeparator
+        numberFormatter.decimalSeparator = Constants.LocalizableKeys.Price.decimalSeparator
+        
+        return numberFormatter.string(from: NSNumber(value: value)) ?? ""
+    }
+    
+    //MARK: GetFloorText
     static func getFloor(floor: String) -> String {
         switch floor {
         case "0":
@@ -93,17 +111,7 @@ class Utils {
         }
     }
     
-    static func formatPricePerSquareMeter(_ value: Double) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.maximumFractionDigits = 2
-        numberFormatter.locale = Locale(identifier: "en")
-        numberFormatter.groupingSeparator = Constants.LocalizableKeys.Price.millarSeparator
-        numberFormatter.decimalSeparator = Constants.LocalizableKeys.Price.decimalSeparator
-        
-        return numberFormatter.string(from: NSNumber(value: value)) ?? ""
-    }
-    
+    // MARK: isFavoriteAd
     static func isFavoriteAd(propertyCode: String) -> (codeFav: String, dateFav: Date)? {
         if CoreDataManager.shared.isFavorite(propertyCode: propertyCode) {
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavoriteEntity")
@@ -133,29 +141,4 @@ struct ExtraParams {
     let municipality: String
     let parking: Bool
     let parkingIncluded: Bool
-    
-}
-
-extension UITextView {
-    func numberOfLines() -> Int {
-        let layoutManager = self.layoutManager
-        let numberOfGlyphs = layoutManager.numberOfGlyphs
-        var lineRange = NSRange(location: 0, length: 0)
-        var index = 0
-        var numberOfLines = 0
-        
-        while index < numberOfGlyphs {
-            layoutManager.lineFragmentRect(forGlyphAt: index, effectiveRange: &lineRange)
-            index = NSMaxRange(lineRange)
-            numberOfLines += 1
-        }
-        
-        return numberOfLines
-    }
-}
-
-extension String {
-    public var localized: String {
-        return NSLocalizedString(self, comment: "")
-    }
 }

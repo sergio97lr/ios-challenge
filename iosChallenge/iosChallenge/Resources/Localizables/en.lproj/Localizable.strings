@@ -41,5 +41,18 @@
 // MARK: Navigation
 "volver_anuncio" = "Back to ad";
 
-//MARK: Others
+// MARK: Others
 "en" = "in";
+"cambio_idioma" = "Language Change";
+"cambio_idioma_text" = "When you restart the application, the language will change to: ";
+
+// MARK: Settings
+"predeterminado" = "System Default";
+"ingles" = "English";
+"espanol" = "Spanish";
+"idioma" = "LANGUAGE";
+"ajustes" = "Settings";
+"tema" = "THEME";
+"tema_claro" = "Light";
+"tema_oscuro" = "Dark";
+"tus_favoritos" = "Your Favorites";

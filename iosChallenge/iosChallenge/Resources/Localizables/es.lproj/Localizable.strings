@@ -43,3 +43,16 @@
 
 //MARK: Others
 "en" = "en";
+"cambio_idioma" = "Cambio de idioma";
+"cambio_idioma_text" = "Cuando reinicies la aplicación el idioma cambiará a: ";
+
+// MARK: Settings
+"predeterminado" = "Por defecto";
+"ingles" = "Inglés";
+"espanol" = "Español";
+"idioma" = "IDIOMA";
+"ajustes" = "Ajustes";
+"tema" = "TEMA";
+"tema_claro" = "Claro";
+"tema_oscuro" = "Oscuro";
+"tus_favoritos" = "Tus Favoritos";

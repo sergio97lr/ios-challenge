@@ -8,15 +8,14 @@
 import UIKit
 import SwiftUI
 
-class BaseViewController: UIViewController {
-    
+class BaseViewController: UIViewController, SettingsViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.setupHeaderView()
         self.setNavigationAppareance()
+        self.setupSettingsButton()
     }
-    
+
     private func setupHeaderView() {
         let navBar = UIHostingController(rootView: HeaderView())
         
@@ -41,7 +40,7 @@ class BaseViewController: UIViewController {
             ])
         }
     }
-    
+
     private func setNavigationAppareance() {
         DispatchQueue.main.async {
             let appearance = UINavigationBarAppearance()
@@ -53,7 +52,31 @@ class BaseViewController: UIViewController {
             self.navigationController?.navigationBar.isTranslucent = true
         }
     }
+
+    private func setupSettingsButton() {
+        let settingsButton = UIBarButtonItem(
+            image: UIImage(systemName: "gearshape.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(settingsButtonTapped)
+        )
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            settingsButton.image = UIImage(systemName: "gearshape.fill")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 24))
+        }
+        
+        settingsButton.tintColor = IdealistaColors.pinkIdealista
+        self.navigationItem.rightBarButtonItem = settingsButton
+    }
     
+    @objc private func settingsButtonTapped() {
+        var settingsView = SettingsView()
+            settingsView.delegate = self
+            let hostingController = UIHostingController(rootView: settingsView)
+            hostingController.modalPresentationStyle = .pageSheet
+            self.present(hostingController, animated: true, completion: nil)
+    }
+
     func setCustomBackButton(title: String) {
         DispatchQueue.main.async {
             if self.navigationController?.viewControllers.first != self {
@@ -68,9 +91,12 @@ class BaseViewController: UIViewController {
             }
         }
     }
-    
+
     @objc private func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    func settingsViewDidClose() {
+        // Delegate function
+    }
 }
-

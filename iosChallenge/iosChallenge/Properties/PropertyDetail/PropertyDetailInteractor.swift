@@ -29,6 +29,8 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
         let municipality = extraParams.municipality
         let originalPropertyCode = extraParams.originalPropertyCode
         let district = extraParams.district
+        var parking = extraParams.parking
+        var parkingIncluded = extraParams.parkingIncluded
         
         let extendedPropertyType = property.extendedPropertyType
         let price = property.priceInfo
@@ -47,7 +49,7 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
         let latitude = property.ubication.latitude
         let longitude = property.ubication.longitude
         
-        arrayCells.append(.propertyDetail(originalPropertyCode: originalPropertyCode, images: images, address: address, district: district, municipality: municipality, price: price, rooms: roomNumber, size: size, exterior: exterior, propertyType: extendedPropertyType, operation: operation, floor: floor, latitude: latitude, longitude: longitude))
+        arrayCells.append(.propertyDetail(originalPropertyCode: originalPropertyCode, images: images, address: address, district: district, municipality: municipality, price: price, rooms: roomNumber, size: size, exterior: exterior, propertyType: extendedPropertyType, operation: operation, floor: floor, latitude: latitude, longitude: longitude, parking: parking, parkingIncluded: parkingIncluded))
         
         arrayCells.append(.title(text: Constants.LocalizableKeys.Home.advertiserComment))
         let propertyComment = property.propertyComment
@@ -59,10 +61,9 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
         basicFeatures.append("\(Int(size))m\u{00B2} \(Constants.LocalizableKeys.Home.constructed)")
         basicFeatures.append("\(roomNumber) \(Constants.LocalizableKeys.Home.bedrooms)")
         basicFeatures.append("\(bathNumber) \(Constants.LocalizableKeys.Home.bathrooms)")
+
         
-        let parking = extraParams.parking
         if parking {
-            let parkingIncluded = extraParams.parkingIncluded
             if parkingIncluded {
                 basicFeatures.append(Constants.LocalizableKeys.Home.parkingIncludedPrice)
             } else {
@@ -118,6 +119,4 @@ extension PropertyDetailInteractor: PropertyDetailInputInteractorProtocol {
     func getProperty() async -> PropertyEntity? {
         return await Utils.getPropertyData(type: "detail") as? PropertyEntity
     }
-    
-    
 }

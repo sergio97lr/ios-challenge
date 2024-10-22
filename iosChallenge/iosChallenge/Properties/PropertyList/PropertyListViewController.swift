@@ -25,8 +25,9 @@ class PropertyListViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.propertyListTableView.reloadData()
+        self.reloadTable()
     }
+    
     
     func setupView() {
         self.propertyListTableView.register(UINib(nibName: "PropertyAdCell", bundle: nil),
@@ -43,6 +44,14 @@ class PropertyListViewController: BaseViewController {
         self.presenter?.getNewPropertyList()
     }
     
+    override func settingsViewDidClose() {
+        self.reloadTable()
+    }
+    
+    func reloadTable() {
+        self.propertyListTableView.reloadData()
+    }
+    
 }
 
 // MARK: PropertyListViewProtocol
@@ -55,7 +64,7 @@ extension PropertyListViewController: PropertyListViewProtocol {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
             if reload {
-                self.propertyListTableView.reloadData()
+                self.reloadTable()
             }
             self.refreshControl.endRefreshing()
         }

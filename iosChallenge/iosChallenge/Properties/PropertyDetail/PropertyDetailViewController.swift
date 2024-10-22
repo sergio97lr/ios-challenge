@@ -21,6 +21,14 @@ class PropertyDetailViewController: BaseViewController {
         self.setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.reloadTable()
+    }
+    
+    override func settingsViewDidClose() {
+        self.reloadTable()
+    }
+    
     func setupView() {
         self.registerCells()
         self.propertyDetailTableView.dataSource = self
@@ -35,6 +43,10 @@ class PropertyDetailViewController: BaseViewController {
         
     }
     
+    func reloadTable() {
+        self.propertyDetailTableView.reloadData()
+    }
+    
 }
 
 // MARK: PropertyDetailViewProtocol
@@ -46,7 +58,7 @@ extension PropertyDetailViewController: PropertyDetailViewProtocol {
     func updateCells(cells: [DetailCellType]) {
         self.cells = cells
         DispatchQueue.main.async{
-            self.propertyDetailTableView.reloadData()
+            self.reloadTable()
         }
     }
     
@@ -55,7 +67,6 @@ extension PropertyDetailViewController: PropertyDetailViewProtocol {
         guard let extraParams = self.extraParams else {return}
         self.presenter?.addPropertyParameters(extraParams: extraParams)
     }
-    
     
 }
 
@@ -72,9 +83,9 @@ extension PropertyDetailViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellType = cells[indexPath.row]
         switch cellType {
-        case .propertyDetail(let originalPropertyCode, let images, let address, let district, let municipality, let price, let rooms, let size, let exterior, let propertyType, let operation, let floor, let latitude, let longitude):
+        case .propertyDetail(let originalPropertyCode, let images, let address, let district, let municipality, let price, let rooms, let size, let exterior, let propertyType, let operation, let floor, let latitude, let longitude, let parking, let parkingIncluded):
             let cell = tableView.dequeueReusableCell(withIdentifier: "InfoDetailTableViewCell", for: indexPath) as! InfoDetailTableViewCell
-            cell.configureCell(originalPropertyCode: originalPropertyCode, images: images, address: address, district: district, municipality: municipality, price: price, rooms: rooms, size: size, exterior: exterior, propertyType: propertyType, operation: operation, floor: floor, latitude: latitude, longitude: longitude)
+            cell.configureCell(originalPropertyCode: originalPropertyCode, images: images, address: address, district: district, municipality: municipality, price: price, rooms: rooms, size: size, exterior: exterior, propertyType: propertyType, operation: operation, floor: floor, latitude: latitude, longitude: longitude, parking: parking, parkingIncluded: parkingIncluded)
             cell.delegate = self
             return cell
         case .title(let text):
