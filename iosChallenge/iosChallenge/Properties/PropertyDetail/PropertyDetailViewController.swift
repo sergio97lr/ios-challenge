@@ -21,6 +21,14 @@ class PropertyDetailViewController: BaseViewController {
         self.setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.reloadTable()
+    }
+    
+    override func settingsViewDidClose() {
+        self.reloadTable()
+    }
+    
     func setupView() {
         self.registerCells()
         self.propertyDetailTableView.dataSource = self
@@ -35,6 +43,10 @@ class PropertyDetailViewController: BaseViewController {
         
     }
     
+    func reloadTable() {
+        self.propertyDetailTableView.reloadData()
+    }
+    
 }
 
 // MARK: PropertyDetailViewProtocol
@@ -46,7 +58,7 @@ extension PropertyDetailViewController: PropertyDetailViewProtocol {
     func updateCells(cells: [DetailCellType]) {
         self.cells = cells
         DispatchQueue.main.async{
-            self.propertyDetailTableView.reloadData()
+            self.reloadTable()
         }
     }
     
@@ -55,7 +67,6 @@ extension PropertyDetailViewController: PropertyDetailViewProtocol {
         guard let extraParams = self.extraParams else {return}
         self.presenter?.addPropertyParameters(extraParams: extraParams)
     }
-    
     
 }
 
