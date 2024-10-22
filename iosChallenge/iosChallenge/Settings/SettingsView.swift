@@ -7,12 +7,18 @@
 
 import SwiftUI
 
+protocol SettingsViewDelegate: AnyObject {
+    func settingsViewDidClose()
+}
+
 struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @AppStorage("selectedLanguage") var selectedLanguage = "system"
     @AppStorage("selectedTheme") var selectedTheme = "system"
     @State private var showLanguageAlert = false
     @State private var alertText = ""
+    @State private var favorites = CoreDataManager.shared.getAllFavorites()
+    weak var delegate: SettingsViewDelegate?
     
     var body: some View {
         Group {
@@ -22,6 +28,7 @@ struct SettingsView: View {
                         .navigationBarTitle(Text(Constants.LocalizableKeys.Settings.settings), displayMode: .inline)
                         .navigationBarItems(trailing: Button(action: {
                             presentationMode.wrappedValue.dismiss()
+                            delegate?.settingsViewDidClose()
                         }) {
                             Image(systemName: "xmark")
                                 .foregroundColor(.primary)
@@ -34,6 +41,7 @@ struct SettingsView: View {
                         .navigationBarTitle(Text(Constants.LocalizableKeys.Settings.settings), displayMode: .inline)
                         .navigationBarItems(trailing: Button(action: {
                             presentationMode.wrappedValue.dismiss()
+                            delegate?.settingsViewDidClose()
                         }) {
                             Image(systemName: "xmark")
                                 .foregroundColor(.primary)
@@ -61,11 +69,9 @@ struct SettingsView: View {
             )
         }
     }
-    
+
     var settingsForm: some View {
         Form {
-            let favorites = CoreDataManager.shared.getAllFavorites()
-            
             // MARK: Language
             Section(header: Text(Constants.LocalizableKeys.Settings.language)) {
                 Picker("Select Language", selection: $selectedLanguage) {
@@ -107,7 +113,14 @@ struct SettingsView: View {
                                     .font(.footnote)
                             }
                             Spacer()
-                            Image("favIcon")
+                            Button(action: {
+                                if let propertyCode = favorite.propertyCode {
+                                    CoreDataManager.shared.deleteFavorite(propertyCode: propertyCode)
+                                    favorites = CoreDataManager.shared.getAllFavorites()
+                                }
+                            }) {
+                                Image("favIcon")
+                            }
                         }
                         .padding(.vertical, 5)
                     }

@@ -8,8 +8,7 @@
 import UIKit
 import SwiftUI
 
-class BaseViewController: UIViewController {
-
+class BaseViewController: UIViewController, SettingsViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupHeaderView()
@@ -71,9 +70,11 @@ class BaseViewController: UIViewController {
     }
     
     @objc private func settingsButtonTapped() {
-        let settingsView = UIHostingController(rootView: SettingsView())
-        settingsView.modalPresentationStyle = .pageSheet
-        self.present(settingsView, animated: true, completion: nil)
+        var settingsView = SettingsView()
+            settingsView.delegate = self
+            let hostingController = UIHostingController(rootView: settingsView)
+            hostingController.modalPresentationStyle = .pageSheet
+            self.present(hostingController, animated: true, completion: nil)
     }
 
     func setCustomBackButton(title: String) {
@@ -93,5 +94,9 @@ class BaseViewController: UIViewController {
 
     @objc private func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func settingsViewDidClose() {
+        // Delegate function
     }
 }
